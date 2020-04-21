@@ -1,9 +1,18 @@
 import React from 'react';
 import '../../styles/Tree/capsule.scss';
-import image from '../../images/capsule.jpg';
 
 class Capsule extends React.Component {
-    showIntensityGraphic = (int) => {
+    state = {
+        active: true,
+        decaffeinated: false,
+        filters: {
+            aromatic_profile: [],
+            cup_size: [],
+            intensity: []
+
+        }
+    }
+    showIntensityGraphic = int => {
         let array = [], intensity = int;
         for (let i = 1; i <= 13; i++) {
             let el = intensity > 0 ? <span key={i} className="int-square active-square">{}</span> : <span key={i} className="int-square">{}</span>;
@@ -12,15 +21,20 @@ class Capsule extends React.Component {
         }
         return array;
     }
+    defineType = () => {
+        this.props.data.title.includes('Decaffeinato') && this.setState({decaffeinated: true});
+    }
     componentDidMount() {
         this.props.getHeight(this.divElement.clientHeight);
+        this.defineType();
     }
     render() {
         const {data, setHeight} = this.props;
+        const image = require(`../../images/${data.title}.png`);
         return (
             <li className="single-capsule">
                 <div className="capsule-inner">
-                    <img src={image} alt="" />
+                    <img src={image.default} alt="" />
                     <p className="cup-name" style={{height: `${setHeight}px`}} ref={(divElement) => {this.divElement = divElement}}>{data.title}</p>
                     <div className="cup-intensity">
                         <span>{data.intensity}</span>
@@ -32,6 +46,8 @@ class Capsule extends React.Component {
                         <span className="bar-horizontal">{}</span>
                     </button>
                 </div>
+                {!this.state.active && <div className="curtain">{}</div>}
+                {this.state.decaffeinated && <span className="decaf-circle">{}</span>}
             </li>
         )
     }

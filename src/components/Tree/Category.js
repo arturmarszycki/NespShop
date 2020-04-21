@@ -1,5 +1,6 @@
 import React from 'react';
 import Capsule from './Capsule';
+import '../../styles/Tree/category.scss';
 
 class Category extends React.Component {
     state = {
@@ -17,9 +18,15 @@ class Category extends React.Component {
             return <Capsule key={item.id_shop_product} data={item} getHeight={this.getTitlesHeight} setHeight={this.state.highestValue} />
         });
         return (
-            <ul>
-                {list}
-            </ul>
+            <div className="category-box">
+                <div className="category-title">
+                    <span>{}</span>
+                    <h3>{items[0].coffee_category}</h3>
+                </div>
+                <ul>
+                    {list}
+                </ul>
+            </div>
         )
     }
 }

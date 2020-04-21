@@ -1,49 +1,18 @@
 import React from 'react';
-import Sets from './Sets';
-import Tree from './Tree';
-import List from './List';
+import Products from './Products';
+import Filters from './Filters';
 
 class Shop extends React.Component {
-    state = {
-        type: this.props.type
-    };
-    getSets = () => {
-        return this.props.shop.filter(item => item.product_type === 'set');
-    };
-    getCapsules = () => {
-        return this.props.shop.filter(item => item.product_type === 'capsule');
-    };
     componentDidMount() {
         this.props.getData();
     }
     render() {
-        const {type} = this.state;
-        if (this.props.shop.length) {
-            if (type === 'full') {
-                return (
-                    <div>
-                        <Sets data={this.getSets()} />
-                        <Tree data={this.getCapsules()} />
-                    </div>
-                )
-            } else if (type === 'tree') {
-                return (
-                    <div>
-                        <Tree data={this.getCapsules()} />
-                    </div>
-                )
-            } else if (type === 'list') {
-                return (
-                    <div>
-                        <List data={this.getCapsules()} />
-                    </div>
-                )
-            } else {
-                return null;
-            }
-        } else {
-            return null;
-        }
+        return (
+            <div className="container">
+                <Filters />
+                <Products type={this.props.type} shop={this.props.shop} />
+            </div>
+        )
     }
 }
 

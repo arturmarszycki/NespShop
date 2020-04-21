@@ -1,7 +1,7 @@
 import React from 'react';
 import store from '../redux/store';
 import {Provider} from 'react-redux';
-import Shop from '../containers/shop';
+import Shop from '../containers/Shop';
 
 const App = () => {
     return (
