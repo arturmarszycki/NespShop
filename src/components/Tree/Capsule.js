@@ -24,6 +24,9 @@ class Capsule extends React.Component {
     defineType = () => {
         this.props.data.title.includes('Decaffeinato') && this.setState({decaffeinated: true});
     }
+    showDetails = () => {
+        this.props.displayDetails(this.props.data);
+    }
     componentDidMount() {
         this.props.getHeight(this.divElement.clientHeight);
         this.defineType();
@@ -33,7 +36,7 @@ class Capsule extends React.Component {
         const image = require(`../../images/${data.title}.png`);
         return (
             <li className="single-capsule">
-                <div className="capsule-inner">
+                <div className="capsule-inner" onClick={this.showDetails}>
                     <img src={image.default} alt="" />
                     <p className="cup-name" style={{height: `${setHeight}px`}} ref={(divElement) => {this.divElement = divElement}}>{data.title}</p>
                     <div className="cup-intensity">

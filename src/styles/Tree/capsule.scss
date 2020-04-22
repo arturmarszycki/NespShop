@@ -9,7 +9,12 @@
     padding: 10px;
     text-align: center;
     font-size: 12px;
+    &:hover {
+      background-color: #eee;
+    }
     img {
+      position: relative;
+      z-index: 1;
       width: 50px;
     }
     .cup-name {
@@ -78,7 +83,6 @@
     position: absolute;
     right: 15%;
     top: 0;
-    z-index: -1;
     display: inline-block;
     width: 30px;
     height: 30px;

@@ -9,10 +9,10 @@ const Tree = ({data}) => {
     const coffee_MasterOrigin = data.filter(item => item.id_shop_category === 12);
     return (
         <div className="panel-tree">
-            <Category items={coffee_IspItaliana} />
-            <Category items={coffee_BaristaCreations} />
-            <Category items={coffee_EspressoLungo} />
-            <Category items={coffee_MasterOrigin} />
+            <Category items={coffee_IspItaliana} fullData={data} />
+            <Category items={coffee_BaristaCreations} fullData={data} />
+            <Category items={coffee_EspressoLungo} fullData={data} />
+            <Category items={coffee_MasterOrigin} fullData={data} />
         </div>
     )
 };
