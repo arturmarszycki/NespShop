@@ -3,6 +3,8 @@ import '../../styles/details.scss';
 import equal from 'fast-deep-equal';
 import description from "./description";
 import Comparable from './Comparable';
+import Allergens from './Allergens';
+import bagIcon from '../../images/icon_bag.png';
 
 class Details extends React.Component {
     state = {
@@ -23,9 +25,6 @@ class Details extends React.Component {
             intensity--;
         }
         return array;
-    }
-    getComparable = () => {
-        console.log('');
     }
     componentDidMount() {
         this.defineType();
@@ -74,8 +73,23 @@ class Details extends React.Component {
                                 </div>
                                 <Comparable list={similarList} />
                             </div>
+                            <Allergens data={data} />
                         </div>
-                        <div className="details-buy"></div>
+                        <div className="details-buy">
+                            <div className="details-price">
+                                <p className="cup-price">&euro;&nbsp;0,40</p>
+                            </div>
+                            <div className="details-cup-buy">
+                                <button>
+                                    <img src={bagIcon} alt="" />
+                                    <span className="btn-title">add to basket</span>
+                                    <span className="btn-add-graphic">
+                                        <span className="bar-vertical">{}</span>
+                                        <span className="bar-horizontal">{}</span>
+                                    </span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

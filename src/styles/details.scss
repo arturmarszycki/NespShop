@@ -1,3 +1,4 @@
+@import './mixins.scss';
 .capsule-details {
   background-color: #eee;
   transition: all .5s;
@@ -38,10 +39,51 @@
       }
       .details-data {
         width: 50%;
+        padding-top: 15px;
         .capsule-title {
           text-transform: uppercase;
+          font-size: 18px;
+          font-weight: 600;
+          letter-spacing: 1px;
+        }
+        .capsule-subtitle {
+          font-size: 14px;
+          margin: 5px 0 15px 0;
+          letter-spacing: 1px;
+        }
+        .capsule-desc {
+          font-size: 14px;
         }
         .capsule-info {
+          margin-top: 20px;
+          .capsule-info-point {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 12px;
+            .info-label {
+              font-weight: 600;
+              letter-spacing: 1px;
+              width: 50%;
+            }
+            .cup-intensity {
+              display: flex;
+              align-items: center;
+              .intensity-graphic {
+                margin-left: 6px;
+                .int-square {
+                  display: inline-block;
+                  width: 3px;
+                  height: 3px;
+                  margin-right: 1px;
+                  background-color: #fff;
+                }
+                .active-square {
+                  background-color: #111;
+                }
+              }
+            }
+          }
           .info-comparable {
             background-color: #fff;
             list-style: none;
@@ -68,6 +110,43 @@
       }
       .details-buy {
         width: 40%;
+        padding-left: 6%;
+        .details-price {
+          margin: 30px 0;
+          color: #357e00;
+          .cup-price {
+            font-size: 16px;
+            letter-spacing: 1px;
+            font-weight: 600;
+          }
+        }
+        .details-cup-buy {
+          button {
+            width: 60%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #3d8705;
+            color: #fff;
+            height: 40px;
+            border: none;
+            border-radius: 3px;
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 1px;
+            padding: 0 5px;
+            cursor: pointer;
+            transition: all .3s;
+            outline: none;
+            .btn-add-graphic {
+              position: relative;
+              display: inline-block;
+              width: 40px;
+              height: 40px;
+              @include btnPlus;
+            }
+          }
+        }
       }
     }
   }

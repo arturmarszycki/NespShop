@@ -1,3 +1,4 @@
+@import './../mixins.scss';
 .single-capsule {
   position: relative;
   list-style: none;
@@ -53,23 +54,11 @@
       cursor: pointer;
       position: relative;
       margin: 5px 0;
-      span {
-        display: inline-block;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%, -50%);
-        background-color: #fff;
-      }
-      .bar-vertical {
-        width: 50%;
-        height: 3px;
-      }
-      .bar-horizontal {
-        width: 3px;
-        height: 50%;
-      }
+      @include btnPlus;
     }
+  }
+  .capsule-active {
+    background-color: #eee;
   }
   .curtain {
     position: absolute;

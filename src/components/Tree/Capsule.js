@@ -3,6 +3,7 @@ import '../../styles/Tree/capsule.scss';
 
 class Capsule extends React.Component {
     state = {
+        data: this.props.data,
         active: true,
         decaffeinated: false,
         filters: {
@@ -22,21 +23,23 @@ class Capsule extends React.Component {
         return array;
     }
     defineType = () => {
-        this.props.data.title.includes('Decaffeinato') && this.setState({decaffeinated: true});
+        this.state.data.title.includes('Decaffeinato') && this.setState({decaffeinated: true});
     }
-    showDetails = () => {
-        this.props.displayDetails(this.props.data);
+    showDetails = async () => {
+        await this.setState(prevState => ({data: {...prevState.data, details: true}}), () => this.props.pushDetailsInfo(this.state.data));
+        this.props.displayDetails(this.state.data);
     }
     componentDidMount() {
         this.props.getHeight(this.divElement.clientHeight);
         this.defineType();
     }
     render() {
-        const {data, setHeight} = this.props;
+        const {setHeight} = this.props;
+        const {data} = this.state;
         const image = require(`../../images/${data.title}.png`);
         return (
             <li className="single-capsule">
-                <div className="capsule-inner" onClick={this.showDetails}>
+                <div className={this.state.data.details ? 'capsule-inner capsule-active' : 'capsule-inner'} onClick={this.showDetails}>
                     <img src={image.default} alt="" />
                     <p className="cup-name" style={{height: `${setHeight}px`}} ref={(divElement) => {this.divElement = divElement}}>{data.title}</p>
                     <div className="cup-intensity">

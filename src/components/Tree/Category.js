@@ -2,9 +2,11 @@ import React from 'react';
 import Capsule from './Capsule';
 import Details from "../Details";
 import '../../styles/Tree/category.scss';
+import equal from 'fast-deep-equal';
 
 class Category extends React.Component {
     state = {
+        items: this.props.items,
         highestValue: null,
         details: null
     }
@@ -20,10 +22,42 @@ class Category extends React.Component {
     closeDetails = () => {
         this.setState({details: null});
     }
+    pushDetailsInfo = el => {
+        const items = this.state.items.map(item => {
+            if (item.id_shop_product === el.id_shop_product) {
+                return el;
+            } else {
+                item.details = false
+                return item;
+            }
+        });
+        this.setState({items});
+        this.props.hideOtherDetails(this.state.items[0].id_shop_category);
+    }
+    componentDidUpdate(prevProps) {
+        const {activeDetailsCategory} = this.props;
+        if(!equal(activeDetailsCategory, prevProps.activeDetailsCategory)) {
+            if (activeDetailsCategory !== this.state.items[0].id_shop_category) {
+                this.closeDetails();
+                const items = this.state.items.map(item => {
+                    item.details = false
+                    return item;
+                });
+                this.setState({items});
+            }
+        }
+    }
     render() {
-        const {items} = this.props;
+        const {items} = this.state;
         const list = items.map(item => {
-            return <Capsule key={item.id_shop_product} data={item} getHeight={this.getTitlesHeight} setHeight={this.state.highestValue} displayDetails={this.showDetails} />
+            return <Capsule
+                key={item.id_shop_product}
+                data={item}
+                getHeight={this.getTitlesHeight}
+                setHeight={this.state.highestValue}
+                displayDetails={this.showDetails}
+                pushDetailsInfo={this.pushDetailsInfo}
+            />
         });
         return (
             <div className="category-box">
