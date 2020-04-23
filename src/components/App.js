@@ -6,7 +6,7 @@ import Shop from '../flow/Shop';
 const App = () => {
     return (
         <Provider store={store}>
-            <Shop type="full" />
+            <Shop type="full" /> {/*tree, list or full*/}
         </Provider>
     )
 };

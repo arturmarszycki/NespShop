@@ -1,29 +1,26 @@
 import React from 'react';
+import AllergensPanel from './AllergensPanel';
+import '../../styles/Details/allergens.scss';
 
 class Allergens extends React.Component {
+    state = {
+        panel: false
+    }
+    togglePanel = () => {
+        this.setState(prevState => ({panel: !prevState.panel}));
+    }
     render() {
         const {data} = this.props;
         return (
             <div className="allergens">
-                <div className="allergens-title">
+                <div className="allergens-title" onClick={this.togglePanel}>
                     <span className="title-icon">
-                        <span className="icon-el-vertical">{}</span>
                         <span className="icon-el-horizontal">{}</span>
+                        {!this.state.panel && <span className="icon-el-vertical">{}</span>}
                     </span>
                     <p>ingredients & allergens</p>
                 </div>
-                <div className="allergens-panel">
-                    <div className="panel-left">
-                        <p>{data.ingredients_info}</p>
-                        <h4>ingredients & allergens</h4>
-                        <p>{data.ingredients_allergens}</p>
-                    </div>
-                    <div className="panel-right">
-                        <h4>NET WEIGHT (FOR 10 CAPSULES)</h4>
-                        <p>{data.net_weight}</p>
-                        <h4>{data.made_in}</h4>
-                    </div>
-                </div>
+                {this.state.panel && <AllergensPanel data={data} />}
             </div>
         )
     }

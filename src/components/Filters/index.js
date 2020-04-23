@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/filters.scss';
+import '../../styles/Filters/filters.scss';
 
 class Filters extends React.Component {
     state = {
@@ -29,7 +29,7 @@ class Filters extends React.Component {
                         <span className="btn_close_filters" onClick={this.toggleFunctions}>x</span>
                     </div>
                     <div className="single-filter">
-                        <p>aromatic profile</p>
+                        <p>{}</p>
                     </div>
                 </div>
             </div>

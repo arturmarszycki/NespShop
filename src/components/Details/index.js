@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/details.scss';
+import '../../styles/Details/details.scss';
 import equal from 'fast-deep-equal';
 import description from "./description";
 import Comparable from './Comparable';
@@ -7,16 +7,19 @@ import Allergens from './Allergens';
 import bagIcon from '../../images/icon_bag.png';
 
 class Details extends React.Component {
-    state = {
-        active: false,
-        decaffeinated: false
-    }
+    constructor(props) {
+        super(props);
+        this.state = {
+            active: false,
+            decaffeinated: false
+        };
+    };
     closeDetails = () => {
         this.props.hideDetails();
-    }
+    };
     defineType = () => {
         this.props.data.title.includes('Decaffeinato') ? this.setState({decaffeinated: true}) : this.setState({decaffeinated: false});
-    }
+    };
     showIntensityGraphic = int => {
         let array = [], intensity = int;
         for (let i = 1; i <= 13; i++) {
@@ -25,7 +28,7 @@ class Details extends React.Component {
             intensity--;
         }
         return array;
-    }
+    };
     componentDidMount() {
         this.defineType();
     }

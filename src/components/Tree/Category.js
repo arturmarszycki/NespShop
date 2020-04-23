@@ -5,10 +5,14 @@ import '../../styles/Tree/category.scss';
 import equal from 'fast-deep-equal';
 
 class Category extends React.Component {
-    state = {
-        items: this.props.items,
-        highestValue: null,
-        details: null
+    constructor(props) {
+        super(props);
+        this.state = {
+            items: this.props.items,
+            highestValue: null,
+            details: null
+        };
+        this.scrollRef = React.createRef();
     }
     array = [];
     getTitlesHeight = height => {
@@ -18,9 +22,14 @@ class Category extends React.Component {
     }
     showDetails = capsule => {
         this.setState({details: capsule});
+        this.scrollToDetails();
     }
     closeDetails = () => {
         this.setState({details: null});
+        this.unmarkCapsule();
+    }
+    scrollToDetails = () => {
+        window.scrollTo({left: 0, top: this.scrollRef.current.offsetTop, behavior: 'smooth'});
     }
     pushDetailsInfo = el => {
         const items = this.state.items.map(item => {
@@ -34,16 +43,19 @@ class Category extends React.Component {
         this.setState({items});
         this.props.hideOtherDetails(this.state.items[0].id_shop_category);
     }
+    unmarkCapsule = () => {
+        const items = this.state.items.map(item => {
+            item.details = false
+            return item;
+        });
+        this.setState({items});
+    }
     componentDidUpdate(prevProps) {
         const {activeDetailsCategory} = this.props;
         if(!equal(activeDetailsCategory, prevProps.activeDetailsCategory)) {
             if (activeDetailsCategory !== this.state.items[0].id_shop_category) {
                 this.closeDetails();
-                const items = this.state.items.map(item => {
-                    item.details = false
-                    return item;
-                });
-                this.setState({items});
+                this.unmarkCapsule();
             }
         }
     }
@@ -60,7 +72,7 @@ class Category extends React.Component {
             />
         });
         return (
-            <div className="category-box">
+            <div className="category-box" ref={this.scrollRef}>
                 <div className="category-box-inner">
                     <div className="category-title">
                         <span>{}</span>
