@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {GET_DATA} from './actions';
+import {GET_DATA, ADD_TO_CART} from './actions';
 
 const shop = (state = [], action) => {
     switch (action.type) {
@@ -9,5 +9,13 @@ const shop = (state = [], action) => {
             return state;
     }
 };
+const cart = (state = [], action) => {
+    switch (action.type) {
+        case ADD_TO_CART:
+            return [...state, action.item];
+        default:
+            return state;
+    }
+};
 
-export default combineReducers({shop});
+export default combineReducers({shop, cart});

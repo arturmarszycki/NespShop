@@ -69,6 +69,7 @@ class Category extends React.Component {
                 setHeight={this.state.highestValue}
                 displayDetails={this.showDetails}
                 pushDetailsInfo={this.pushDetailsInfo}
+                showQty={this.props.showQty}
             />
         });
         return (

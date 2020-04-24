@@ -19,20 +19,20 @@ class Products extends React.Component {
             if (type === 'full') {
                 return (
                     <div>
-                        <Sets data={this.getSets()} />
-                        <Tree data={this.getCapsules()} />
+                        <Sets data={this.getSets()} showQty={this.props.showQty} />
+                        <Tree data={this.getCapsules()} showQty={this.props.showQty} />
                     </div>
                 )
             } else if (type === 'tree') {
                 return (
                     <div>
-                        <Tree data={this.getCapsules()} />
+                        <Tree data={this.getCapsules()} showQty={this.props.showQty} />
                     </div>
                 )
             } else if (type === 'list') {
                 return (
                     <div>
-                        <List data={this.getCapsules()} />
+                        <List data={this.getCapsules()} showQty={this.props.showQty} />
                     </div>
                 )
             } else {

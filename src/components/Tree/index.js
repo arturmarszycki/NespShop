@@ -12,16 +12,27 @@ class Tree extends React.Component {
     }
     render() {
         const {data, activeDetailsCategory} = this.state;
-        const coffee_IspItaliana = data.filter(item => item.id_shop_category === 9);
-        const coffee_BaristaCreations = data.filter(item => item.id_shop_category === 29);
-        const coffee_EspressoLungo = data.filter(item => item.id_shop_category === 11);
-        const coffee_MasterOrigin = data.filter(item => item.id_shop_category === 12);
+        const categoryArray = [
+            data.filter(item => item.id_shop_category === 9),
+            data.filter(item => item.id_shop_category === 29),
+            data.filter(item => item.id_shop_category === 11),
+            data.filter(item => item.id_shop_category === 12)
+        ];
+        const list = categoryArray.map(cat => {
+            return (
+                <Category
+                    key={cat[0].id_shop_category}
+                    items={cat}
+                    fullData={data}
+                    hideOtherDetails={this.hideOtherDetails}
+                    activeDetailsCategory={activeDetailsCategory}
+                    showQty={this.props.showQty}
+                />
+            )
+        });
         return (
             <div className="panel-tree">
-                <Category items={coffee_IspItaliana} fullData={data} hideOtherDetails={this.hideOtherDetails} activeDetailsCategory={activeDetailsCategory} />
-                <Category items={coffee_BaristaCreations} fullData={data} hideOtherDetails={this.hideOtherDetails} activeDetailsCategory={activeDetailsCategory} />
-                <Category items={coffee_EspressoLungo} fullData={data} hideOtherDetails={this.hideOtherDetails} activeDetailsCategory={activeDetailsCategory} />
-                <Category items={coffee_MasterOrigin} fullData={data} hideOtherDetails={this.hideOtherDetails} activeDetailsCategory={activeDetailsCategory} />
+                {list}
             </div>
         )
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import AllergensPanel from './AllergensPanel';
 import '../../styles/Details/allergens.scss';
+import equal from 'fast-deep-equal';
 
 class Allergens extends React.Component {
     state = {
@@ -8,6 +9,14 @@ class Allergens extends React.Component {
     }
     togglePanel = () => {
         this.setState(prevState => ({panel: !prevState.panel}));
+    }
+    hidePanel = () => {
+        this.setState({panel: false});
+    }
+    componentDidUpdate(prevProps) {
+        if(!equal(this.props.data, prevProps.data)) {
+            this.hidePanel();
+        }
     }
     render() {
         const {data} = this.props;

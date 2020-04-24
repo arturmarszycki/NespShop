@@ -29,13 +29,17 @@ class Capsule extends React.Component {
         await this.setState(prevState => ({data: {...prevState.data, details: true}}), () => this.props.pushDetailsInfo(this.state.data));
         this.props.displayDetails(this.state.data);
     }
+    chooseQty = e => {
+        e.stopPropagation();
+        this.props.showQty(this.state.data);
+    }
     componentDidMount() {
         this.props.getHeight(this.divElement.clientHeight);
         this.defineType();
     }
     render() {
         const {setHeight} = this.props;
-        const {data} = this.state;
+        const {data, active, decaffeinated, qty} = this.state;
         const image = require(`../../images/${data.title}.png`);
         return (
             <li className="single-capsule">
@@ -47,13 +51,13 @@ class Capsule extends React.Component {
                         <div className="intensity-graphic">{this.showIntensityGraphic(data.intensity)}</div>
                     </div>
                     <p className="cup-price">&euro;&nbsp;0,40</p>
-                    <button className="btn_addToBasket">
+                    <button className="btn_addToBasket" onClick={this.chooseQty}>
                         <span className="bar-vertical">{}</span>
                         <span className="bar-horizontal">{}</span>
                     </button>
                 </div>
-                {!this.state.active && <div className="curtain">{}</div>}
-                {this.state.decaffeinated && <span className="decaf-circle">{}</span>}
+                {!active && <div className="curtain">{}</div>}
+                {decaffeinated && <span className="decaf-circle">{}</span>}
             </li>
         )
     }
