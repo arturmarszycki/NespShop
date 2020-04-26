@@ -29,6 +29,9 @@ class Details extends React.Component {
         }
         return array;
     };
+    chooseQty = () => {
+        this.props.showQty(this.props.data);
+    }
     componentDidMount() {
         this.defineType();
     }
@@ -44,6 +47,7 @@ class Details extends React.Component {
         const similarList = data.similar_products.map(product => {
             return product = fullData.filter(item => item.id_shop_product === Number(product))[0];
         });
+        const filteredCapsuleProp = fullData.filter(capsule => data.id_shop_product === capsule.id_shop_product)[0];
         return (
             <div className="capsule-details">
                 <div className="details-inner">
@@ -83,12 +87,17 @@ class Details extends React.Component {
                                 <p className="cup-price">&euro;&nbsp;0,40</p>
                             </div>
                             <div className="details-cup-buy">
-                                <button>
+                                <button onClick={this.chooseQty}>
                                     <img src={bagIcon} alt="" />
                                     <span className="btn-title">add to basket</span>
                                     <span className="btn-add-graphic">
-                                        <span className="bar-vertical">{}</span>
-                                        <span className="bar-horizontal">{}</span>
+                                        {filteredCapsuleProp.qty ?
+                                            <span className="btn-qty">{filteredCapsuleProp.qty}</span> :
+                                            <span className="btn_bars">
+                                                <span className="bar-vertical">{}</span>
+                                                <span className="bar-horizontal">{}</span>
+                                            </span>
+                                        }
                                     </span>
                                 </button>
                             </div>

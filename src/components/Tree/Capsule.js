@@ -38,8 +38,8 @@ class Capsule extends React.Component {
         this.defineType();
     }
     render() {
-        const {setHeight} = this.props;
-        const {data, active, decaffeinated, qty} = this.state;
+        const {setHeight, data} = this.props;
+        const {active, decaffeinated} = this.state;
         const image = require(`../../images/${data.title}.png`);
         return (
             <li className="single-capsule">
@@ -52,8 +52,13 @@ class Capsule extends React.Component {
                     </div>
                     <p className="cup-price">&euro;&nbsp;0,40</p>
                     <button className="btn_addToBasket" onClick={this.chooseQty}>
-                        <span className="bar-vertical">{}</span>
-                        <span className="bar-horizontal">{}</span>
+                        {data.qty ?
+                            <span className="btn-qty">{data.qty}</span> :
+                            <span className="btn_bars">
+                                <span className="bar-vertical">{}</span>
+                                <span className="bar-horizontal">{}</span>
+                            </span>
+                        }
                     </button>
                 </div>
                 {!active && <div className="curtain">{}</div>}

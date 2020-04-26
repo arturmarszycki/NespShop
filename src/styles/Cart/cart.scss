@@ -4,11 +4,99 @@
   right: 0;
   bottom: 0;
   width: 100%;
-  height: 20px;
-  background-color: red;
-  .basket {
+  z-index: 10;
+  background-color: #000;
+  border: 2px solid #333;
+  padding: 5px 0;
+  .basket-entry {
     width: 100%;
-    max-width: 1200px;
+    padding: 5px 50px;
+    max-width: 960px;
     margin: 0 auto;
+    background-color: #fff;
+    cursor: pointer;
+    h5 {
+      text-align: center;
+    }
+    div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .basket-sum {
+        span {
+          color: #357e00;
+        }
+      }
+    }
+  }
+  .basket-full {
+    .btn_basket_min {
+      margin: 0 auto 10px auto;
+      display: flex;
+      justify-content: center;
+      span {
+        display: inline-block;
+        border-right: 3px solid #fff;
+        border-bottom: 3px solid #fff;
+        cursor: pointer;
+        width: 20px;
+        height: 20px;
+        transform: rotate(45deg);
+      }
+    }
+    .basket {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
+      list-style: none;
+      li {
+        height: 40px;
+        padding: 5px 30px;
+        border-bottom: 1px solid #aaa;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #fff;
+        div {
+          display: flex;
+          align-items: center;
+          height: 100%;
+        }
+        .cart-item-info {
+          img {
+            height: 75%;
+            cursor: pointer;
+          }
+          span {
+            display: inline-block;
+            margin: 0 10px;
+          }
+        }
+        .cart-item-actions {
+          .cart-item-price {
+            color: #357e00;
+          }
+          img {
+            height: 50%;
+            margin-left: 20px;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+    .basket-sum {
+      max-width: 960px;
+      background-color: #fff;
+      margin: 0 auto;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      padding: 5px 30px;
+      .cart-sum {
+        display: inline-block;
+        margin-left: 20px;
+        color: #357e00;
+      }
+    }
   }
 }

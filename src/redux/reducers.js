@@ -1,21 +1,30 @@
 import {combineReducers} from 'redux';
-import {GET_DATA, ADD_TO_CART} from './actions';
+import {GET_DATA, UPDATE_SHOP_ITEM, REMOVE_ITEM} from './actions';
 
 const shop = (state = [], action) => {
     switch (action.type) {
         case GET_DATA:
             return state = action.result;
-        default:
-            return state;
-    }
-};
-const cart = (state = [], action) => {
-    switch (action.type) {
-        case ADD_TO_CART:
-            return [...state, action.item];
+        case UPDATE_SHOP_ITEM:
+            let updated = state.map(el => {
+                if (el.id_shop_product === action.item.id_shop_product) {
+                    return action.item;
+                } else {
+                    return el;
+                }
+            });
+            return state = updated;
+        case REMOVE_ITEM:
+            let updatedCart = state.map(el => {
+                if (el.id_shop_product === action.item) {
+                    el.qty = 0;
+                }
+                return el;
+            })
+            return state = updatedCart;
         default:
             return state;
     }
 };
 
-export default combineReducers({shop, cart});
+export default combineReducers({shop});

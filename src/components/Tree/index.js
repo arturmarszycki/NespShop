@@ -11,7 +11,8 @@ class Tree extends React.Component {
         this.setState({activeDetailsCategory: cat});
     }
     render() {
-        const {data, activeDetailsCategory} = this.state;
+        const {activeDetailsCategory} = this.state;
+        const {data} = this.props;
         const categoryArray = [
             data.filter(item => item.id_shop_category === 9),
             data.filter(item => item.id_shop_category === 29),

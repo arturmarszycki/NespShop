@@ -60,7 +60,7 @@ class Category extends React.Component {
         }
     }
     render() {
-        const {items} = this.state;
+        const {items} = this.props;
         const list = items.map(item => {
             return <Capsule
                 key={item.id_shop_product}
@@ -83,7 +83,7 @@ class Category extends React.Component {
                         {list}
                     </ul>
                 </div>
-                {this.state.details && <Details data={this.state.details} hideDetails={this.closeDetails} fullData={this.props.fullData} />}
+                {this.state.details && <Details data={this.state.details} hideDetails={this.closeDetails} fullData={this.props.fullData} showQty={this.props.showQty} />}
             </div>
         )
     }
