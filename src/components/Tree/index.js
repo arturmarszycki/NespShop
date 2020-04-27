@@ -1,10 +1,8 @@
 import React from 'react';
 import Category from './Category';
-import '../../styles/Tree/tree.scss';
 
 class Tree extends React.Component {
     state = {
-        data: this.props.data,
         activeDetailsCategory: null
     }
     hideOtherDetails = cat => {

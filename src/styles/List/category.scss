@@ -1,0 +1,20 @@
+.category-list {
+  .category-box-inner {
+    width: 100%;
+    max-width: 1024px;
+    margin: 0 auto;
+    background-color: #fff;
+    .category-title {
+      padding: 40px 30px 10px 30px;
+      h3 {
+        padding: 0 10px;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+    }
+    ul {
+      list-style: none;
+    }
+  }
+}

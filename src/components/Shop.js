@@ -28,16 +28,16 @@ class Shop extends React.Component {
     }
     render() {
         const {item, qty} = this.state;
-        const {shop} = this.props;
+        const {shop, type} = this.props;
         const cartItems = shop.filter(item => {
             if (item.qty) {
                 return item;
             }
         });
         return (
-            <div className="container">
-                <Filters />
-                <Products type={this.props.type} shop={this.props.shop} showQty={this.showQty} />
+            <div className={type === 'list' ? 'container grey-bgc' : 'container'}>
+                {type === 'list' ? null : <Filters />}
+                <Products type={type} shop={shop} showQty={this.showQty} />
                 {cartItems.length ? <Cart items={cartItems} remove={this.removeItem} /> : null}
                 {qty && <Qty data={item} hideQty={this.hideQty} addToCart={this.addToCart} />}
             </div>
