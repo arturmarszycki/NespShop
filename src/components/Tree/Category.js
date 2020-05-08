@@ -62,15 +62,17 @@ class Category extends React.Component {
     render() {
         const {items} = this.props;
         const list = items.map(item => {
-            return <Capsule
-                key={item.id_shop_product}
-                data={item}
-                getHeight={this.getTitlesHeight}
-                setHeight={this.state.highestValue}
-                displayDetails={this.showDetails}
-                pushDetailsInfo={this.pushDetailsInfo}
-                showQty={this.props.showQty}
-            />
+            return (
+                <Capsule
+                    key={item.id_shop_product}
+                    data={item}
+                    getHeight={this.getTitlesHeight}
+                    setHeight={this.state.highestValue}
+                    displayDetails={this.showDetails}
+                    pushDetailsInfo={this.pushDetailsInfo}
+                    showQty={this.props.showQty}
+                />
+            )
         });
         return (
             <div className="category-box" ref={this.scrollRef}>

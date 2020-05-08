@@ -1,0 +1,107 @@
+@import '../mixins';
+@import '../variables';
+.sets {
+  list-style: none;
+  margin: 0 auto 10% auto;
+  width: 100%;
+  max-width: 1200px;
+  font-weight: 300;
+  @media#{$desktop} {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .single-set {
+    padding: 2% 8%;
+    display: flex;
+    align-items: center;
+    height: 160px;
+    border-bottom: 1px solid #aaa;
+    @media#{$desktop} {
+      border-bottom: none;
+      padding: 2%;
+      display: block;
+      text-align: center;
+      width: 24%;
+      height: initial;
+    }
+    .set-left-part {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      @media#{$desktop} {
+        display: block;
+        width: initial;
+        height: initial;
+      }
+      img {
+        height: 80%;
+        @media#{$desktop} {
+          width: 60%;
+          height: initial;
+        }
+      }
+      .packet-name {
+        padding: 0 5%;
+        font-size: 14px;
+        line-height: 150%;
+        text-transform: uppercase;
+        @media#{$desktop} {
+          padding: 0 25%;
+        }
+      }
+    }
+    .set-right-part {
+      width: 50%;
+      height: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      @media#{$desktop} {
+        display: block;
+        width: initial;
+        height: initial;
+      }
+      .packet-price {
+        color: #357e00;
+        margin: 15px 0;
+        font-size: 13px;
+      }
+      .packet-go-to-details {
+        font-size: 12px;
+        margin-bottom: 15px;
+        span {
+          &:hover {
+            cursor: pointer;
+            text-decoration: underline;
+          }
+        }
+      }
+      .btn_addToBasket {
+        @include addToBasket;
+      }
+      .btn_ownSet {
+        @include addToBasket;
+        width: initial;
+        color: #fff;
+        text-transform: uppercase;
+        padding: 0 20px;
+        font-weight: 300;
+      }
+    }
+  }
+  .own-set {
+    .set-left-part {
+      .packet-name {
+        height: 42px;
+        @media#{$desktop} {
+          height: 63px;
+        }
+      }
+    }
+    .set-right-part {
+      justify-content: flex-end;
+    }
+  }
+}

@@ -13,7 +13,9 @@ class Cart extends React.Component {
         const {items, remove} = this.props;
         const {full} = this.state;
         const list = items.length && items.map(item => <Item key={item.id_shop_product} data={item} remove={remove} />);
-        const cartSum = items.length && items.map(item => item.qty * 0.4).reduce((sum, item) => sum += item);
+        const cartSum = items.length && items.map(item => {
+            return item.product_type === 'capsule' ? item.qty * 0.4 : item.qty * 42.5
+        }).reduce((sum, item) => sum += item);
         return (
             <div className="shopping-cart">
                 {!full && <div className="basket-entry" onClick={this.basketView}>

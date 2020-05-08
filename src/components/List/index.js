@@ -5,8 +5,15 @@ class List extends React.Component {
     state = {
         activeDetailsCapsule: null
     }
+    scrollRef = React.createRef();
     hideOtherDetails = capsule => {
         this.setState({activeDetailsCapsule: capsule});
+    }
+    scrollToList = () => {
+        window.scrollTo({left: 0, top: this.scrollRef.current.offsetTop, behavior: 'smooth'});
+    }
+    componentDidMount() {
+        this.scrollToList();
     }
     render() {
         const {activeDetailsCapsule} = this.state;
@@ -30,7 +37,7 @@ class List extends React.Component {
             )
         });
         return (
-            <div className="panel-list">
+            <div className="panel-list" ref={this.scrollRef}>
                 {list}
             </div>
         )

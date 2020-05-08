@@ -5,8 +5,17 @@ class Tree extends React.Component {
     state = {
         activeDetailsCategory: null
     }
+    scrollTreeRef = React.createRef();
     hideOtherDetails = cat => {
         this.setState({activeDetailsCategory: cat});
+    }
+    scrollToTree = () => {
+        setTimeout(() => {
+            window.scrollTo({left: 0, top: this.scrollTreeRef.current.offsetTop, behavior: 'smooth'});
+        }, 20);
+    }
+    componentDidMount() {
+        this.scrollToTree();
     }
     render() {
         const {activeDetailsCategory} = this.state;
@@ -30,7 +39,7 @@ class Tree extends React.Component {
             )
         });
         return (
-            <div className="panel-tree">
+            <div className="panel-tree" ref={this.scrollTreeRef}>
                 {list}
             </div>
         )

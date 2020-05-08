@@ -3,7 +3,7 @@ import '../../styles/Cart/qty.scss';
 
 class Qty extends React.Component {
     state = {
-        capsule: this.props.data,
+        product: this.props.data,
         decaffeinated: false
     }
     defineType = () => {
@@ -24,25 +24,25 @@ class Qty extends React.Component {
         this.props.hideQty();
     }
     addToBasket = qty => {
-        this.setState(prevState => ({capsule: {...prevState.capsule, qty: qty}}), () => this.props.addToCart(this.state.capsule));
+        this.setState(prevState => ({product: {...prevState.product, qty: qty}}), () => this.props.addToCart(this.state.product));
     }
     componentDidMount() {
         this.defineType();
     }
     render() {
-        const {capsule} = this.state;
-        const image = require(`../../images/${capsule.title}.png`);
+        const {product} = this.state;
+        const image = product.product_type === 'capsule' ? require(`../../images/${product.title}.png`) : require(`../../images/packet_${product.capsule_count}.png`);
         return (
             <div className="qty" onClick={this.hideQty}>
                 <div className="choose-qty-frame" onClick={e => e.stopPropagation()}>
                     <div className="qty-selected-product">
                         <img src={image.default} alt="" />
-                        <p>{capsule.title}</p>
+                        <p>{product.title}</p>
                         {this.state.decaffeinated && <span className="decaf-circle">{}</span>}
                     </div>
                     <div className="qty-fields">
                         <h5>Choose a quantity</h5>
-                        {this.showQuantities(capsule.product_type)}
+                        {this.showQuantities(product.product_type)}
                     </div>
                 </div>
             </div>
