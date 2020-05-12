@@ -6,7 +6,8 @@ import List from './List';
 class Products extends React.Component {
     state = {
         type: this.props.type,
-        showTree: false
+        showTree: false,
+        mobile: false
     };
     getSets = () => {
         return this.props.shop.filter(item => item.product_type === 'set');
@@ -17,19 +18,25 @@ class Products extends React.Component {
     showTree = () => {
         this.setState({showTree: true});
     }
+    handleResize = () => {
+        window.innerWidth < 1200 ? this.setState({mobile: true}) : this.setState({mobile: false});
+    }
+    componentDidMount() {
+        this.handleResize();
+        window.addEventListener('resize', this.handleResize);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.handleResize);
+    }
     render() {
-        const {type, showTree} = this.state;
+        const {type, showTree, mobile} = this.state;
         if (this.props.shop.length) {
             if (type === 'full') {
                 return (
                     <div>
                         <Sets data={this.getSets()} showQty={this.props.showQty} showTree={this.showTree} />
-                        <div className="view-desktop">
-                            {showTree && <Tree data={this.getCapsules()} showQty={this.props.showQty} />}
-                        </div>
-                        <div className="view-mobile">
-                            {showTree && <List data={this.getCapsules()} showQty={this.props.showQty} />}
-                        </div>
+                        {showTree && !mobile && <Tree data={this.getCapsules()} showQty={this.props.showQty} />}
+                        {showTree && mobile && <List data={this.getCapsules()} showQty={this.props.showQty} />}
                     </div>
                 )
             } else if (type === 'tree') {
