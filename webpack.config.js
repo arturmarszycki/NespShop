@@ -1,6 +1,6 @@
 const path = require("path");
 const entryPath = "src";
-const entryFile = "index.js";
+const entryFile = "combine.js";
 const autoprefixer = require('autoprefixer');
 
 module.exports = {

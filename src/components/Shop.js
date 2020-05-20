@@ -1,48 +1,18 @@
 import React from 'react';
-import Products from './Products';
-import Filters from './Filters';
-import Cart from "./Cart";
-import Qty from "./Cart/Qty";
+import ShopWrapper from './ShopComponents';
 
-class Shop extends React.Component {
-    state = {
-        item: null,
-        cartList: [],
-        qty: false
-    }
-    showQty = item => {
-        this.setState({qty: true, item});
-    }
-    hideQty = () => {
-        this.setState({qty: false, item: null});
-    }
-    addToCart = item => {
-        this.setState({qty: false});
-        this.props.updateShopItem(item);
-    }
-    removeItem = item => {
-        this.props.removeItem(item);
-    }
-    componentDidMount() {
-        this.props.getData();
-    }
-    render() {
-        const {item, qty} = this.state;
-        const {shop, type} = this.props;
-        const cartItems = shop.filter(item => {
-            if (item.qty) {
-                return item;
-            }
-        });
-        return (
-            <div className={type === 'list' ? 'container grey-bgc' : 'container'}>
-                {type === 'list' ? null : <Filters />}
-                <Products type={type} shop={shop} showQty={this.showQty} />
-                {cartItems.length ? <Cart items={cartItems} remove={this.removeItem} /> : null}
-                {qty && <Qty data={item} hideQty={this.hideQty} addToCart={this.addToCart} />}
-            </div>
-        )
-    }
-}
+const Shop = ({shop, getData, updateShopItem, removeItem}) => {
+   return (
+       <>
+           <ShopWrapper
+               type="full" /*tree, list or full*/
+               shop={shop}
+               getData={getData}
+               updateShopItem={updateShopItem}
+               removeItem={removeItem}
+           />
+       </>
+   )
+};
 
 export default Shop;

@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import Shop from '../components/Shop';
-import {fetchData, updateShopItem, removeItem} from '../redux/actions';
+import {fetchData, updateShopItem, removeItem} from '../redux/actions/shopActions';
 
 const mapState = state => ({
     shop: state.shop

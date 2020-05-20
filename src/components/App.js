@@ -2,11 +2,20 @@ import React from 'react';
 import store from '../redux/store';
 import {Provider} from 'react-redux';
 import Shop from '../flow/Shop';
+import Machine from '../flow/Machine';
+import Start from './Start';
+import {HashRouter as Router, Route, Switch} from 'react-router-dom';
 
 const App = () => {
     return (
         <Provider store={store}>
-            <Shop type="tree" /> {/*tree, list or full*/}
+            <Router>
+                <Switch>
+                    <Route exact path="/" component={Start} />
+                    <Route path="/your-machine" component={Machine} />
+                    <Route path="/choose-products" component={Shop} />
+                </Switch>
+            </Router>
         </Provider>
     )
 };

@@ -7,6 +7,18 @@
 }
 .container {
   padding: 10vh 0 30vh 0;
+  min-height: 100vh;
+  .view-desktop {
+    display: none;
+    @media#{$desktop} {
+      display: block;
+    }
+  }
+  .view-mobile {
+    @media#{$desktop} {
+      display: none;
+    }
+  }
 }
 .grey-bgc {
   background-color: #eee;
