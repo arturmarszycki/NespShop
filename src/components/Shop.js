@@ -5,7 +5,7 @@ const Shop = ({shop, getData, updateShopItem, removeItem}) => {
    return (
        <>
            <ShopWrapper
-               type="full" /*tree, list or full*/
+               type="tree" /*tree, list or full*/
                shop={shop}
                getData={getData}
                updateShopItem={updateShopItem}

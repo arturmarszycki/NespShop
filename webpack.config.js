@@ -1,6 +1,6 @@
 const path = require("path");
 const entryPath = "src";
-const entryFile = "combine.js";
+const entryFile = "index.js";
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
@@ -21,6 +21,10 @@ module.exports = {
                 test: /\.js$/,
                 exclude: /node_modules/,
                 loader: "babel-loader"
+            },
+            {
+                test: /\.css$/,
+                use: ['style-loader','css-loader']
             },
             {
                 test: /\.scss$/,

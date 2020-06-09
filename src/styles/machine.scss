@@ -1,3 +1,6 @@
+.form-hr {
+  transform: translateY(-78px);
+}
 .form-machine {
   margin: 0 auto;
   max-width: 960px;
@@ -7,6 +10,107 @@
     h2 {
       text-transform: uppercase;
       font-weight: 700;
+      padding: 30px 0;
+    }
+    form {
+      label {
+        color: #222;
+        font-size: 12px;
+        display: inline-block;
+        margin: 30px 0 8px 0;
+      }
+      .serial-help {
+        margin-bottom: 20px;
+        span {
+          font-size: 12px;
+          color: #1eaedb;
+          cursor: pointer;
+        }
+      }
+      .form-input {
+        input {
+          max-width: 300px;
+          width: 100%;
+          height: 38px;
+          padding: 0 10px;
+          outline: none;
+        }
+        #serial_number {
+          letter-spacing: 2px;
+          &:focus {
+            &::-webkit-input-placeholder {
+              color: transparent;
+            }
+          }
+        }
+      }
+      .form-submit-part {
+        padding: 20px 0;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin-top: 30px;
+        button {
+          height: 38px;
+          padding: 0 40px;
+          line-height: 38px;
+          background-color: #af7c40;
+          color: #fff;
+          font-size: 12px;
+          font-weight: 600;
+          text-transform: uppercase;
+          border: 1px solid #af7c40;
+          outline: none;
+          &:hover {
+            cursor: pointer;
+            background-color: transparent;
+            color: #af7c40;
+          }
+        }
+      }
+    }
+  }
+}
+.info-frame {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .serial-info {
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 550px;
+    padding: 15px;
+    img {
+      width: 30%;
+      height: auto;
+    }
+    .serial-info-p {
+      width: 65%;
+      text-align: center;
+      p {
+        font-size: 13px;
+        line-height: 180%;
+      }
+      button {
+        margin-top: 20px;
+        border: none;
+        text-transform: uppercase;
+        background-color: #fff;
+        color: #1eaedb;
+        outline: none;
+        font-size: 16px;
+        letter-spacing: 1px;
+        text-decoration: underline;
+        cursor: pointer;
+      }
     }
   }
 }
