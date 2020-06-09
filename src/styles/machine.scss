@@ -34,6 +34,22 @@
           height: 38px;
           padding: 0 10px;
           outline: none;
+          border: 1px solid #767676;
+          &:focus {
+            border: 1px solid #1eaedb;
+          }
+        }
+        input[type=number] {
+          &::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+            margin: 0;
+          }
+          &::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            -moz-appearance: textfield;
+            margin: 0;
+          }
         }
         #serial_number {
           letter-spacing: 2px;
@@ -41,6 +57,37 @@
             &::-webkit-input-placeholder {
               color: transparent;
             }
+          }
+        }
+        .input-file-apparition {
+          position: relative;
+          background-color: #fff;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          width: 100%;
+          padding: 0 10px;
+          height: 38px;
+          max-width: 300px;
+          border: 1px solid #767676;
+          cursor: pointer;
+          span {
+            color: #222;
+            font-size: 12px;
+          }
+          img {
+            width: 20px;
+          }
+          .tooltip-help {
+            display: inline-block;
+            position: absolute;
+            left: 95%;
+            bottom: 30px;
+            background-color: #af7c40;
+            color: #fff;
+            padding: 10px;
+            width: 75%;
+            border-radius: 5px;
           }
         }
       }
