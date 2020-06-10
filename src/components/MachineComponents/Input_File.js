@@ -1,14 +1,14 @@
 import React from 'react';
 import TooltipHelp from "./TooltipHelp";
 
-class FileInput extends React.Component {
+class Input_File extends React.Component {
     state = {
         image: null,
         image_preview_URL: null,
         tooltip: false
     }
     fileHandler = e => {
-        this.setState({image: e.target.files[0]}, () => this.props.addImage(this.state.image.name));
+        this.setState({image: e.target.files[0]}, () => this.props.validatePurchaseProof(this.state.image.name));
         let reader = new FileReader();
         reader.onloadend = () => {
             this.setState({image_preview_URL: reader.result});
@@ -27,6 +27,7 @@ class FileInput extends React.Component {
         return (
             <div className="form-input">
                 <label htmlFor="purchase_proof">Proof of purchase</label>
+                {this.props.error_msg && <p><small className="form-warn">{this.props.error_msg}</small></p>}
                 <span className="input-file-apparition" onClick={() => this.inputElement.click()}>
                     <span>Choose a file from your computer</span>
                     <img src={img.default} alt="" onMouseEnter={this.showTooltip} onMouseLeave={this.hideTooltip} />
@@ -47,4 +48,4 @@ class FileInput extends React.Component {
     }
 }
 
-export default FileInput;
+export default Input_File;

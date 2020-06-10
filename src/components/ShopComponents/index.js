@@ -4,6 +4,9 @@ import Filters from './Filters';
 import Cart from './Cart';
 import Qty from './Cart/Qty';
 import DetailsSet from './DetailsSet';
+import TopBar from "../CommonComponents/TopBar";
+import Steps from "../CommonComponents/Steps";
+import BottomBar from "../CommonComponents/BottomBar";
 
 class ShopWrapper extends React.Component {
     state = {
@@ -38,11 +41,14 @@ class ShopWrapper extends React.Component {
         });
         return (
             <div className={type === 'list' ? 'container grey-bgc' : 'container'}>
+                <TopBar />
+                <Steps step={2} />
                 {type === 'list' ? null : <Filters />}
                 <Products type={type} shop={shop} showQty={this.showQty} />
                 {cartItems.length ? <Cart items={cartItems} remove={this.removeItem} /> : null}
                 {qty && <Qty data={item} hideQty={this.hideQty} addToCart={this.addToCart} />}
                 {detailsSet && <DetailsSet />}
+                <BottomBar />
             </div>
         )
     }

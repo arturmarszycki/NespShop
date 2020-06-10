@@ -1,0 +1,122 @@
+.bar {
+  position: fixed;
+  left: 0;
+  width: 100%;
+  height: 75px;
+  padding: 15px 0;
+  background-color: #000;
+  z-index: 10;
+  .bar-container {
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+    max-width: 960px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    img {
+      height: 100%;
+    }
+    .footer-menu {
+      list-style: none;
+      width: 75%;
+      display: flex;
+      justify-content: flex-end;
+      li {
+        margin-left: 5%;
+        a {
+          color: #af7c40;
+          font-size: 12px;
+          text-decoration: none;
+          &:hover {
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+}
+.top-bar {
+  top: 0;
+}
+.bottom-bar {
+  bottom: 0;
+}
+.application-steps {
+  position: fixed;
+  left: 0;
+  top: 0;
+  padding-top: 75px;
+  width: 100%;
+  height: 135px;
+  background-color: #eee;
+  z-index: 9;
+  .steps-container {
+    height: 100%;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 960px;
+    .steps {
+      height: 100%;
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      .single-step {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-top: 10px;
+        width: 190px;
+        text-align: center;
+        margin: 0 5px;
+        position: relative;
+        .step-circle {
+          border-radius: 50%;
+          border: 1px solid #bbb;
+          width: 21px;
+          height: 21px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          span {
+            display: inline-block;
+            width: 11px;
+            height: 11px;
+            background-color: #bbb;
+            border-radius: 50%;
+          }
+        }
+        .step-name {
+          text-transform: uppercase;
+          font-size: 10px;
+          color: #999;
+          margin-top: 10px;
+        }
+        .step-line {
+          position: absolute;
+          left: -55px;
+          top: 20px;
+          display: inline-block;
+          width: 100px;
+          height: 1px;
+          background-color: #bbb;
+        }
+      }
+      .step-active {
+        .step-circle {
+          border: 1px solid #af7c40;
+          span {
+            background-color: #af7c40;
+          }
+        }
+        .step-name {
+          color: #000;
+        }
+        .step-line {
+          background-color: #af7c40;
+        }
+      }
+    }
+  }
+}

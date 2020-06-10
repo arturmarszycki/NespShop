@@ -1,16 +1,18 @@
 import React from 'react';
 
-class SerialNumberInput extends React.Component {
+class Input_SerialNumber extends React.Component {
     state = {
-        serial_number: '',
-        warning: false
+        serial_number: ''
+    }
+    handleSerialNumber = e => {
+        this.setState({serial_number: e.target.value});
     }
     render() {
-        const {serial_number, warning} = this.state
+        const {serial_number} = this.state
         return (
             <div>
                 <label htmlFor="serial_number">Machine serial number</label>
-                {warning && <small>warning</small>}
+                {this.props.error_msg && <p><small className="form-warn">{this.props.error_msg}</small></p>}
                 <div className="form-input">
                     <input
                         type="text"
@@ -19,7 +21,7 @@ class SerialNumberInput extends React.Component {
                         placeholder="XXXXXXXXXXXXXXXXXXX"
                         onChange={this.handleSerialNumber}
                         value={serial_number}
-                        onBlur={() => this.validateSerialNumber(serial_number)}
+                        onBlur={() => this.props.validateSerialNumber(serial_number)}
                     />
                 </div>
                 <div className="serial-help">
@@ -30,4 +32,4 @@ class SerialNumberInput extends React.Component {
     }
 }
 
-export default SerialNumberInput;
+export default Input_SerialNumber;

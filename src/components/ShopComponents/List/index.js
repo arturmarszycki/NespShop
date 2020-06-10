@@ -10,7 +10,7 @@ class List extends React.Component {
         this.setState({activeDetailsCapsule: capsule});
     }
     scrollToList = () => {
-        window.scrollTo({left: 0, top: this.scrollRef.current.offsetTop, behavior: 'smooth'});
+        window.scrollTo({left: 0, top: this.scrollRef.current.offsetTop - 150, behavior: 'smooth'});
     }
     componentDidMount() {
         this.scrollToList();

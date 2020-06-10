@@ -10,8 +10,9 @@ class Tree extends React.Component {
         this.setState({activeDetailsCategory: cat});
     }
     scrollToTree = () => {
+        let ofDist = this.scrollTreeRef.current.offsetTop - 160;
         setTimeout(() => {
-            window.scrollTo({left: 0, top: this.scrollTreeRef.current.offsetTop, behavior: 'smooth'});
+            window.scrollTo({left: 0, top: ofDist, behavior: 'smooth'});
         }, 20);
     }
     componentDidMount() {
