@@ -13,7 +13,7 @@ class Input_SerialNumber extends React.Component {
     barcodeLoader = () => {
         this.setState({barcode: true}, () => {
             setTimeout(() => {
-                this.setState({barcode: false, serial_number: 'serialklubnespresso'});
+                this.setState({barcode: false, serial_number: 'serialklubnespresso'}, () => this.props.validateSerialNumber(this.state.serial_number));
             }, 2000);
         });
     }
