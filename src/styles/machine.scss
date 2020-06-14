@@ -1,3 +1,4 @@
+@import 'mixins';
 .form-hr {
   transform: translateY(-78px);
 }
@@ -35,6 +36,7 @@
         }
       }
       .form-input {
+        position: relative;
         input {
           max-width: 300px;
           width: 100%;
@@ -67,6 +69,7 @@
           border: 1px solid #767676;
           background-color: #fff;
           appearance: none;
+          margin-bottom: 20px;
           &:focus {
             border: 1px solid #1eaedb;
           }
@@ -98,17 +101,17 @@
           img {
             width: 20px;
           }
-          .tooltip-help {
-            display: inline-block;
-            position: absolute;
-            left: 95%;
-            bottom: 30px;
-            background-color: #af7c40;
-            color: #fff;
-            padding: 10px;
-            width: 75%;
-            border-radius: 5px;
+          @include tooltipHelp;
+        }
+        .barcode {
+          position: absolute;
+          left: 300px;
+          top: 0;
+          img {
+            height: 38px;
+            cursor: pointer;
           }
+          @include tooltipHelp;
         }
       }
       .form-submit-part {
@@ -148,6 +151,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 12;
   .serial-info {
     background-color: #fff;
     display: flex;

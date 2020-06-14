@@ -76,3 +76,18 @@
     }
   }
 }
+@mixin tooltipHelp {
+  .tooltip-help {
+    display: inline-block;
+    position: absolute;
+    left: 95%;
+    bottom: 30px;
+    background-color: #af7c40;
+    color: #fff;
+    padding: 10px;
+    font-size: 12px;
+    width: 75%;
+    min-width: 180px;
+    border-radius: 5px;
+  }
+}

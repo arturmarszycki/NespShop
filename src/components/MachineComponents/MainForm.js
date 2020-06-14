@@ -3,9 +3,7 @@ import {Link} from 'react-router-dom';
 import Input_SerialNumber from "./Input_SerialNumber";
 import Input_PurchasingDate from './Input_PurchasingDate';
 import Input_Price from './Input_Price';
-import Input_Type from './Input_Type';
-import Input_Point from './Input_Point';
-import Input_City from './Input_City';
+import Input_Select from './Input_Select';
 import Input_File from './Input_File';
 
 class MainForm extends React.Component {
@@ -15,17 +13,20 @@ class MainForm extends React.Component {
             serial_number: '',
             purchasing_date: null,
             price: '',
-            type: '',
-            point: '',
-            city: '',
+            select_type: '',
+            select_point: '',
+            select_city: '',
             purchase_proof: null,
             serial_number_error: '',
             purchasing_date_error: '',
             price_error: '',
-            type_error: '',
+            select_error: '',
             purchase_proof_error: ''
         };
     }
+    typeOptions = [{title: '--- Type of store ---', value: ''}, {title: 'physical store', value: '1'}, {title: 'online store', value: '2'}];
+    pointOptions = [{title: '--- Point of purchase ---', value: ''}, {title: 'test 1', value: '1'}, {title: 'test 2', value: '2'}, {title: 'test 3', value: '3'}];
+    cityOptions = [{title: '--- City ---', value: ''}, {title: 'city 1', value: '1'}, {title: 'city 2', value: '2'}, {title: 'city 3', value: '3'}];
     handleSerialNumber = number => {
         this.setState({serial_number: number});
     }
@@ -61,22 +62,16 @@ class MainForm extends React.Component {
             this.setState({price_error: ''});
         }
     }
-    handleType = type => {
-        this.setState({type});
+    handleSelect = (type, val) => {
+        this.setState({[type]: val});
     }
-    validateType = type => {
-        this.handleType(type);
-        if (!type) {
-            this.setState({type_error: 'SELECT'});
+    validateSelect = (type, val) => {
+        this.handleSelect(type, val);
+        if (!val) {
+            this.setState({select_error: 'INCORRECT SHOP CHOSEN'});
         } else {
-            this.setState({type_error: ''});
+            this.setState({select_error: ''});
         }
-    }
-    handlePoint = point => {
-        this.setState({point});
-    }
-    handleCity = city => {
-        this.setState({city});
     }
     handlePurchaseProof = img => {
         this.setState({purchase_proof: img});
@@ -91,9 +86,9 @@ class MainForm extends React.Component {
     }
     handleSubmit = e => {
         e.preventDefault();
-        const {serial_number, purchasing_date, price, type, purchase_proof} = this.state;
-        let data = {serial_number, purchasing_date, price, type, purchase_proof};
-        if (serial_number && purchasing_date && price && type && purchase_proof) {
+        const {serial_number, purchasing_date, price, select_type, select_point, select_city, purchase_proof} = this.state;
+        let data = {serial_number, purchasing_date, price, select_type, select_point, select_city, purchase_proof};
+        if (serial_number && purchasing_date && price && select_type && purchase_proof) {
             this.props.addMachineInfo(data);
             this.refs.shopRef.click();
         } else {
@@ -106,8 +101,8 @@ class MainForm extends React.Component {
             if (!price) {
                 this.validatePrice(price);
             }
-            if (!type) {
-                this.validateType(type);
+            if (!select_type) {
+                this.validateSelect('select_type', select_type);
             }
             if (!purchase_proof) {
                 this.validatePurchaseProof(purchase_proof);
@@ -115,7 +110,7 @@ class MainForm extends React.Component {
         }
     }
     render() {
-        const {type, point, serial_number_error, purchasing_date_error, price_error, type_error, purchase_proof_error} = this.state;
+        const {select_type, select_point, serial_number_error, purchasing_date_error, price_error, select_error, purchase_proof_error} = this.state;
         return (
             <div className="form-machine">
                 <div className="form-inner">
@@ -124,9 +119,9 @@ class MainForm extends React.Component {
                         <Input_SerialNumber showSerialInfo={this.props.showSerialInfo} validateSerialNumber={this.validateSerialNumber} error_msg={serial_number_error} />
                         <Input_PurchasingDate validatePurchasingDate={this.validatePurchasingDate} error_msg={purchasing_date_error} />
                         <Input_Price validatePrice={this.validatePrice} error_msg={price_error} />
-                        <Input_Type validateType={this.validateType} error_msg={type_error} />
-                        {type && <Input_Point handlePoint={this.handlePoint} />}
-                        {point && type !== '2' && <Input_City handleCity={this.handleCity} />}
+                        <Input_Select handleSelect={this.validateSelect} error_msg={select_error} select_title="select_type" options={this.typeOptions} />
+                        {select_type && <Input_Select handleSelect={this.handleSelect} select_title="select_point" options={this.pointOptions} />}
+                        {select_type && select_point && select_type !== '2' && <Input_Select handleSelect={this.handleSelect} select_title="select_city" options={this.cityOptions} />}
                         <Input_File validatePurchaseProof={this.validatePurchaseProof} error_msg={purchase_proof_error} />
                         <div className="form-submit-part">
                             <button className="btn_machine_submit">Next</button>

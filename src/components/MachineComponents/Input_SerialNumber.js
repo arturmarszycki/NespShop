@@ -1,14 +1,24 @@
 import React from 'react';
+import Barcode from './Barcode';
+import '../../styles/barcode.css';
 
 class Input_SerialNumber extends React.Component {
     state = {
-        serial_number: ''
+        serial_number: '',
+        barcode: false
     }
     handleSerialNumber = e => {
         this.setState({serial_number: e.target.value});
     }
+    barcodeLoader = () => {
+        this.setState({barcode: true}, () => {
+            setTimeout(() => {
+                this.setState({barcode: false, serial_number: 'serialklubnespresso'});
+            }, 2000);
+        });
+    }
     render() {
-        const {serial_number} = this.state
+        const {serial_number, barcode} = this.state
         return (
             <div>
                 <label htmlFor="serial_number">Machine serial number</label>
@@ -23,6 +33,12 @@ class Input_SerialNumber extends React.Component {
                         value={serial_number}
                         onBlur={() => this.props.validateSerialNumber(serial_number)}
                     />
+                    <Barcode startLoader={this.barcodeLoader} />
+                    {barcode && <div className="barcode-loader">
+                        <div className="meter animate">
+                            <span style={{width: '100%'}}><span>{}</span></span>
+                        </div>
+                    </div>}
                 </div>
                 <div className="serial-help">
                     <span onClick={this.props.showSerialInfo}>More information</span>
