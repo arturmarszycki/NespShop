@@ -5,10 +5,20 @@ import equal from 'fast-deep-equal';
 
 class Allergens extends React.Component {
     state = {
-        panel: false
+        panel: false,
+        hideSmoothly: false
     }
     togglePanel = () => {
-        this.setState(prevState => ({panel: !prevState.panel}));
+        const {panel} = this.state;
+        if (panel) {
+            this.setState({hideSmoothly: true});
+            setTimeout(() => {
+                this.setState({panel: false, hideSmoothly: false});
+            }, 1000);
+        } else {
+            this.setState({panel: true});
+        }
+        //this.setState(prevState => ({panel: !prevState.panel}));
     }
     hidePanel = () => {
         this.setState({panel: false});
@@ -20,16 +30,17 @@ class Allergens extends React.Component {
     }
     render() {
         const {data} = this.props;
+        const {panel, hideSmoothly} = this.state;
         return (
             <div className="allergens">
                 <div className="allergens-title" onClick={this.togglePanel}>
-                    <span className="title-icon">
+                    <span className={panel ? 'title-icon' : 'title-icon icon-animate'}>
                         <span className="icon-el-horizontal">{}</span>
-                        {!this.state.panel && <span className="icon-el-vertical">{}</span>}
+                        <span className={panel ? 'icon-el-vertical icon-el-blur' : 'icon-el-vertical'}>{}</span>
                     </span>
                     <p>ingredients & allergens</p>
                 </div>
-                {this.state.panel && <AllergensPanel data={data} />}
+                {panel && <AllergensPanel data={data} hideSmoothly={hideSmoothly} />}
             </div>
         )
     }

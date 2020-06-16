@@ -10,7 +10,7 @@ const DetailsFull = ({data, similarList, filteredCapsuleProp, decaffeinated, clo
     return (
         <div className="details-inner">
             <div className="close-details">
-                <span onClick={closeDetails}>x</span>
+                <span onClick={closeDetails}>+</span>
             </div>
             <div className="details-info">
                 <div className="details-graphic">
@@ -49,14 +49,14 @@ const DetailsFull = ({data, similarList, filteredCapsuleProp, decaffeinated, clo
                             <img src={bagIcon} alt="" />
                             <span className="btn-title">add to basket</span>
                             <span className="btn-add-graphic">
-                                        {filteredCapsuleProp.qty ?
-                                            <span className="btn-qty">{filteredCapsuleProp.qty}</span> :
-                                            <span className="btn_bars">
-                                                <span className="bar-vertical">{}</span>
-                                                <span className="bar-horizontal">{}</span>
-                                            </span>
-                                        }
+                                {filteredCapsuleProp.qty ?
+                                    <span className="btn-qty">{filteredCapsuleProp.qty}</span> :
+                                    <span className="btn_bars">
+                                        <span className="bar-vertical">{}</span>
+                                        <span className="bar-horizontal">{}</span>
                                     </span>
+                                }
+                            </span>
                         </button>
                     </div>
                 </div>

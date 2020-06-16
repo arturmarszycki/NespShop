@@ -11,6 +11,7 @@
       background-color: #bbb;
       width: 20px;
       height: 20px;
+      transition: all .75s;
       .icon-el-vertical {
         position: absolute;
         left: 50%;
@@ -20,6 +21,11 @@
         width: 2px;
         height: 50%;
         background-color: #fff;
+        opacity: 1;
+        transition: all .75s;
+      }
+      .icon-el-blur {
+        opacity: 0;
       }
       .icon-el-horizontal {
         position: absolute;
@@ -31,6 +37,9 @@
         height: 2px;
         background-color: #fff;
       }
+    }
+    .icon-animate {
+      transform: rotate(360deg);
     }
     p {
       font-size: 14px;
