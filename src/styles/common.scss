@@ -1,3 +1,4 @@
+@import 'variables';
 .bar {
   position: fixed;
   left: 0;
@@ -22,6 +23,7 @@
       width: 75%;
       display: flex;
       justify-content: flex-end;
+      padding-right: 20px;
       li {
         margin-left: 5%;
         a {
@@ -49,7 +51,7 @@
   padding-top: 75px;
   width: 100%;
   height: 135px;
-  background-color: #eee;
+  background-color: #f2f2f2;
   z-index: 9;
   .steps-container {
     height: 100%;
@@ -73,7 +75,7 @@
         position: relative;
         .step-circle {
           border-radius: 50%;
-          border: 1px solid #bbb;
+          border: 1px solid #e6e6e6;
           width: 21px;
           height: 21px;
           display: flex;
@@ -83,24 +85,27 @@
             display: inline-block;
             width: 11px;
             height: 11px;
-            background-color: #bbb;
+            background-color: #e6e6e6;
             border-radius: 50%;
           }
         }
         .step-name {
           text-transform: uppercase;
-          font-size: 10px;
-          color: #999;
+          font-size: 9px;
+          color: #aaa;
           margin-top: 10px;
         }
         .step-line {
-          position: absolute;
-          left: -55px;
-          top: 20px;
-          display: inline-block;
-          width: 100px;
-          height: 1px;
-          background-color: #bbb;
+          display: none;
+          @media #{$tab768} {
+            position: absolute;
+            left: -55px;
+            top: 20px;
+            display: inline-block;
+            width: 100px;
+            height: 1px;
+            background-color: #e6e6e6;
+          }
         }
       }
       .step-active {

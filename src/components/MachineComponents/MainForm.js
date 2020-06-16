@@ -111,8 +111,10 @@ class MainForm extends React.Component {
     }
     render() {
         const {select_type, select_point, serial_number_error, purchasing_date_error, price_error, select_error, purchase_proof_error} = this.state;
+        const img = require('../../images/machine.jpg');
         return (
             <div className="form-machine">
+                <img className="img-machine" src={img.default} alt=""/>
                 <div className="form-inner">
                     <h2>machine information</h2>
                     <form action="" onSubmit={this.handleSubmit}>
