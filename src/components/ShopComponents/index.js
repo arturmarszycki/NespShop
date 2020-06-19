@@ -7,13 +7,15 @@ import DetailsSet from './DetailsSet';
 import TopBar from "../CommonComponents/TopBar";
 import Steps from "../CommonComponents/Steps";
 import BottomBar from "../CommonComponents/BottomBar";
+import ShopActionBar from "./Cart/ShopActionBar";
 
 class ShopWrapper extends React.Component {
     state = {
         item: null,
         cartList: [],
         qty: false,
-        detailsSet: false
+        detailsSet: false,
+        scrolledToBottom: false
     }
     showQty = item => {
         this.setState({qty: true, item});
@@ -28,27 +30,46 @@ class ShopWrapper extends React.Component {
     removeItem = item => {
         this.props.removeItem(item);
     }
+    isBottom(el) {
+        return el.getBoundingClientRect().bottom <= window.innerHeight + 20;
+    }
+    trackScrolling = () => {
+        const wrappedElement = document.getElementById('wrapper');
+        if (this.isBottom(wrappedElement)) {
+            this.setState({scrolledToBottom: true});
+        } else {
+            this.setState({scrolledToBottom: false});
+        }
+    };
     componentDidMount() {
         this.props.getData();
+        document.addEventListener('scroll', this.trackScrolling);
+    }
+    componentWillUnmount() {
+        document.removeEventListener('scroll', this.trackScrolling);
     }
     render() {
-        const {item, qty, detailsSet} = this.state;
+        const {item, qty, detailsSet, scrolledToBottom} = this.state;
         const {shop, type} = this.props;
         const cartItems = shop.filter(item => {
             if (item.qty) {
                 return item;
             }
         });
+        const totalAmount = cartItems.length && cartItems.map(el => el.qty).reduce((sum, item) => sum += item);
         return (
-            <div className={type === 'list' ? 'container grey-bgc' : 'container'}>
+            <div className={type === 'list' ? 'container grey-bgc' : 'container'} id="wrapper">
                 <TopBar />
                 <Steps step={2} />
                 {type === 'list' ? null : <Filters />}
                 <Products type={type} shop={shop} showQty={this.showQty} />
-                {cartItems.length ? <Cart items={cartItems} remove={this.removeItem} /> : null}
+                <Cart items={cartItems} remove={this.removeItem} />
                 {qty && <Qty data={item} hideQty={this.hideQty} addToCart={this.addToCart} />}
                 {detailsSet && <DetailsSet />}
-                <BottomBar />
+                <div className="active-bottom">
+                    <ShopActionBar amount={totalAmount} />
+                    {scrolledToBottom && <BottomBar static_a />}
+                </div>
             </div>
         )
     }

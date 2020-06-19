@@ -2,10 +2,10 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import '../../styles/common.scss';
 
-const BottomBar = () => {
+const BottomBar = ({static_a}) => {
     const img = require('../../images/Logo_Nespresso.png');
     return (
-        <div className="bar bottom-bar">
+        <div className="bar bottom-bar" style={static_a ? {position: 'static'} : {}}>
             <div className="bar-container">
                 <img src={img.default} alt=""/>
                 <ul className="footer-menu">
