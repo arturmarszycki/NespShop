@@ -17,12 +17,13 @@ class MachineWrapper extends React.Component {
         this.setState({serialInfo: false});
     }
     render() {
+        const {machineData, addMachineInfo} = this.props;
         const {serialInfo} = this.state;
         return (
             <div className="container grey-bgc">
                 <TopBar />
                 <Steps step={1} />
-                <MainForm addMachineInfo={this.props.addMachineInfo} showSerialInfo={this.showSerialInfo} />
+                <MainForm machineData={machineData} addMachineInfo={addMachineInfo} showSerialInfo={this.showSerialInfo} />
                 <hr className="form-hr" />
                 {serialInfo && <SerialInfo hideSerialInfo={this.hideSerialInfo} />}
                 <BottomBar />

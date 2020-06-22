@@ -1,5 +1,6 @@
 import React from 'react';
 import TooltipHelp from "./TooltipHelp";
+import equal from 'fast-deep-equal';
 
 class Input_File extends React.Component {
     state = {
@@ -8,18 +9,28 @@ class Input_File extends React.Component {
         tooltip: false
     }
     fileHandler = e => {
-        this.setState({image: e.target.files[0]}, () => this.props.validatePurchaseProof(this.state.image.name));
+        this.setState({image: e.target.files[0]}, () => this.props.validatePurchaseProof(this.state.image));
+        this.fileReader(e.target.files[0]);
+    }
+    fileReader = file => {
         let reader = new FileReader();
         reader.onloadend = () => {
             this.setState({image_preview_URL: reader.result});
         }
-        reader.readAsDataURL(e.target.files[0]);
+        reader.readAsDataURL(file);
     }
     showTooltip = () => {
         this.setState({tooltip: true});
     }
     hideTooltip = () => {
         this.setState({tooltip: false});
+    }
+    componentDidUpdate(prevProps) {
+        const {data} = this.props;
+        if(!equal(data, prevProps.data)) {
+            this.setState({image: data});
+            this.fileReader(data);
+        }
     }
     render() {
         const {image_preview_URL, tooltip} = this.state;

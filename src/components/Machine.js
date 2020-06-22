@@ -1,10 +1,10 @@
 import React from 'react';
 import MachineWrapper from './MachineComponents';
 
-const Machine = ({addMachineInfo}) => {
+const Machine = ({machineData, addMachineInfo}) => {
     return (
         <>
-            <MachineWrapper addMachineInfo={addMachineInfo} />
+            <MachineWrapper machineData={machineData} addMachineInfo={addMachineInfo} />
         </>
     )
 };

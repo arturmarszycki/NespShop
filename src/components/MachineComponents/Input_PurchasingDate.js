@@ -1,6 +1,7 @@
 import React from 'react';
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
+import equal from 'fast-deep-equal';
 
 class Input_PurchasingDate extends React.Component {
     state = {
@@ -8,7 +9,13 @@ class Input_PurchasingDate extends React.Component {
     }
     handleDate = date => {
         this.setState({purchasing_date: date});
-        this.props.validatePurchasingDate(date.toLocaleDateString());
+        this.props.validatePurchasingDate(date);
+    }
+    componentDidUpdate(prevProps) {
+        const {data} = this.props;
+        if(!equal(data, prevProps.data)) {
+            this.setState({purchasing_date: data});
+        }
     }
     render() {
         const {purchasing_date} = this.state

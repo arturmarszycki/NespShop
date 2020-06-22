@@ -1,4 +1,5 @@
 import React from 'react';
+import equal from 'fast-deep-equal';
 
 class Input_Select extends React.Component {
     state = {
@@ -6,6 +7,12 @@ class Input_Select extends React.Component {
     }
     handleSelect = e => {
         this.setState({select_value: e.target.value}, () => this.props.handleSelect(this.props.select_title, this.state.select_value));
+    }
+    componentDidUpdate(prevProps) {
+        const {data} = this.props;
+        if(!equal(data, prevProps.data)) {
+            this.setState({select_value: data});
+        }
     }
     render() {
         const {select_value} = this.state

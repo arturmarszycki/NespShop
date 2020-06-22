@@ -77,18 +77,19 @@ class MainForm extends React.Component {
         this.setState({purchase_proof: img});
     }
     validatePurchaseProof = img => {
-        this.handlePurchaseProof(img);
         if (!img) {
             this.setState({purchase_proof_error: 'INCORRECT RECEIPT PHOTO'});
+            this.handlePurchaseProof(img);
         } else {
             this.setState({purchase_proof_error: ''});
+            this.handlePurchaseProof(img);
         }
     }
     handleSubmit = e => {
         e.preventDefault();
         const {serial_number, purchasing_date, price, select_type, select_point, select_city, purchase_proof} = this.state;
         let data = {serial_number, purchasing_date, price, select_type, select_point, select_city, purchase_proof};
-        if (serial_number && purchasing_date && price && select_type && purchase_proof) {
+        if (serial_number && purchasing_date && price && select_type && select_point && purchase_proof) {
             this.props.addMachineInfo(data);
             this.refs.shopRef.click();
         } else {
@@ -104,13 +105,36 @@ class MainForm extends React.Component {
             if (!select_type) {
                 this.validateSelect('select_type', select_type);
             }
+            if (!select_point) {
+                this.validateSelect('select_point', select_point);
+            }
+            if (!select_city) {
+                this.validateSelect('select_city', select_city);
+            }
             if (!purchase_proof) {
                 this.validatePurchaseProof(purchase_proof);
             }
         }
     }
+    objectNotEmpty = obj => {
+        for (let key in obj) {
+            if(obj.hasOwnProperty(key)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    componentDidMount() {
+        if (this.objectNotEmpty(this.props.machineData)) {
+            const {serial_number, purchasing_date, price, select_type, select_point, select_city, purchase_proof} = this.props.machineData;
+            this.setState({serial_number, purchasing_date, price, select_type, select_point, select_city, purchase_proof});
+        }
+    }
     render() {
-        const {select_type, select_point, serial_number_error, purchasing_date_error, price_error, select_error, purchase_proof_error} = this.state;
+        const {
+            serial_number, purchasing_date, price, select_type, select_point, select_city, purchase_proof,
+            serial_number_error, purchasing_date_error, price_error, select_error, purchase_proof_error
+        } = this.state;
         const img = require('../../images/machine.jpg');
         return (
             <div className="form-machine">
@@ -118,13 +142,13 @@ class MainForm extends React.Component {
                 <div className="form-inner">
                     <h2>machine information</h2>
                     <form action="" onSubmit={this.handleSubmit}>
-                        <Input_SerialNumber showSerialInfo={this.props.showSerialInfo} validateSerialNumber={this.validateSerialNumber} error_msg={serial_number_error} />
-                        <Input_PurchasingDate validatePurchasingDate={this.validatePurchasingDate} error_msg={purchasing_date_error} />
-                        <Input_Price validatePrice={this.validatePrice} error_msg={price_error} />
-                        <Input_Select handleSelect={this.validateSelect} error_msg={select_error} select_title="select_type" options={this.typeOptions} />
-                        {select_type && <Input_Select handleSelect={this.handleSelect} select_title="select_point" options={this.pointOptions} />}
-                        {select_type && select_point && select_type !== '2' && <Input_Select handleSelect={this.handleSelect} select_title="select_city" options={this.cityOptions} />}
-                        <Input_File validatePurchaseProof={this.validatePurchaseProof} error_msg={purchase_proof_error} />
+                        <Input_SerialNumber showSerialInfo={this.props.showSerialInfo} validateSerialNumber={this.validateSerialNumber} error_msg={serial_number_error} data={serial_number} />
+                        <Input_PurchasingDate validatePurchasingDate={this.validatePurchasingDate} error_msg={purchasing_date_error} data={purchasing_date} />
+                        <Input_Price validatePrice={this.validatePrice} error_msg={price_error} data={price} />
+                        <Input_Select handleSelect={this.validateSelect} error_msg={select_error} select_title="select_type" options={this.typeOptions} data={select_type} />
+                        {select_type && <Input_Select handleSelect={this.validateSelect} select_title="select_point" options={this.pointOptions} data={select_point} />}
+                        {select_type && select_point && select_type !== '2' && <Input_Select handleSelect={this.validateSelect} select_title="select_city" options={this.cityOptions} data={select_city} />}
+                        <Input_File validatePurchaseProof={this.validatePurchaseProof} error_msg={purchase_proof_error} data={purchase_proof} />
                         <div className="form-submit-part">
                             <button className="btn_machine_submit">Next</button>
                             <Link to="/choose-products" ref="shopRef">{}</Link>

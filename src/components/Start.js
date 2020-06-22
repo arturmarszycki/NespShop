@@ -8,7 +8,7 @@ const Start = () => {
         <div className="page-start">
             <img src={img.default} alt=""/>
             <Link to="/your-machine">
-                <span>promotion</span>
+                <span>go to promotion</span>
             </Link>
         </div>
     )

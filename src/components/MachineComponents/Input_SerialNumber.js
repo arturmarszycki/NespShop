@@ -1,14 +1,25 @@
 import React from 'react';
 import Barcode from './Barcode';
 import '../../styles/barcode.css';
+import equal from 'fast-deep-equal';
 
 class Input_SerialNumber extends React.Component {
     state = {
         serial_number: '',
-        barcode: false
+        barcode: false,
+        backspace: false
+    }
+    isBackspace = e => {
+        if (e.keyCode === 8) {
+            this.setState({backspace: true});
+        } else {
+            this.setState({backspace: false});
+        }
     }
     handleSerialNumber = e => {
-        this.setState({serial_number: e.target.value});
+        if (this.state.serial_number.length < 19 || this.state.backspace) {
+            this.setState({serial_number: e.target.value});
+        }
     }
     barcodeLoader = () => {
         this.setState({barcode: true}, () => {
@@ -16,6 +27,12 @@ class Input_SerialNumber extends React.Component {
                 this.setState({barcode: false, serial_number: 'serialklubnespresso'}, () => this.props.validateSerialNumber(this.state.serial_number));
             }, 2000);
         });
+    }
+    componentDidUpdate(prevProps) {
+        const {data} = this.props;
+        if(!equal(data, prevProps.data)) {
+            this.setState({serial_number: data});
+        }
     }
     render() {
         const {serial_number, barcode} = this.state
@@ -29,6 +46,7 @@ class Input_SerialNumber extends React.Component {
                         name="serial_number"
                         id="serial_number"
                         placeholder="XXXXXXXXXXXXXXXXXXX"
+                        onKeyDown={this.isBackspace}
                         onChange={this.handleSerialNumber}
                         value={serial_number}
                         onBlur={() => this.props.validateSerialNumber(serial_number)}

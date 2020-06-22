@@ -1,4 +1,5 @@
 import React from 'react';
+import equal from 'fast-deep-equal';
 
 class Input_Price extends React.Component {
     state = {
@@ -6,6 +7,12 @@ class Input_Price extends React.Component {
     }
     handlePrice = e => {
         this.setState({price: e.target.value});
+    }
+    componentDidUpdate(prevProps) {
+        const {data} = this.props;
+        if(!equal(data, prevProps.data)) {
+            this.setState({price: data});
+        }
     }
     render() {
         const {price} = this.state

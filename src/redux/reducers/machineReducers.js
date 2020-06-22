@@ -1,9 +1,9 @@
 import {ADD_INFO} from '../actions/machineActions';
 
-const machine = (state = [], action) => {
+const machine = (state = {}, action) => {
     switch (action.type) {
         case ADD_INFO:
-            return [...state, action.info];
+            return action.info;
         default:
             return state;
     }
