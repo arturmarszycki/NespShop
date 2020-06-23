@@ -8,6 +8,10 @@ class Input_Select extends React.Component {
     handleSelect = e => {
         this.setState({select_value: e.target.value}, () => this.props.handleSelect(this.props.select_title, this.state.select_value));
     }
+    componentDidMount() {
+        const {data} = this.props;
+        this.setState({select_value: data});
+    }
     componentDidUpdate(prevProps) {
         const {data} = this.props;
         if(!equal(data, prevProps.data)) {

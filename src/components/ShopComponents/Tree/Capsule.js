@@ -1,11 +1,14 @@
 import React from 'react';
+import Qty from '../Cart/Qty';
 import '../../../styles/Shop/Tree/capsule.scss';
+import equal from 'fast-deep-equal';
 
 class Capsule extends React.Component {
     state = {
         data: this.props.data,
         active: true,
         decaffeinated: false,
+        qty: false,
         filters: {
             aromatic_profile: [],
             cup_size: [],
@@ -29,17 +32,27 @@ class Capsule extends React.Component {
         await this.setState(prevState => ({data: {...prevState.data, details: true}}), () => this.props.pushDetailsInfo(this.state.data));
         this.props.displayDetails(this.state.data);
     }
+    hideQty = () => {
+        this.setState({qty: false});
+    }
     chooseQty = e => {
         e.stopPropagation();
+        this.setState({qty: true});
         this.props.showQty(this.state.data);
     }
     componentDidMount() {
         this.props.getHeight(this.divElement.clientHeight);
         this.defineType();
     }
+    componentDidUpdate(prevProps) {
+        const {qty} = this.props;
+        if(!equal(qty, prevProps.qty)) {
+            this.setState({qty});
+        }
+    }
     render() {
         const {setHeight, data} = this.props;
-        const {active, decaffeinated} = this.state;
+        const {active, decaffeinated, qty} = this.state;
         const image = require(`../../../images/${data.title}.png`);
         return (
             <li className="single-capsule">
@@ -51,7 +64,7 @@ class Capsule extends React.Component {
                         <div className="intensity-graphic">{this.showIntensityGraphic(data.intensity)}</div>
                     </div>
                     <p className="cup-price">&euro;&nbsp;0,40</p>
-                    <button className="btn_addToBasket" onClick={this.chooseQty}>
+                    <div className="btn_addToBasket" onClick={this.chooseQty}>
                         {data.qty ?
                             <span className="btn-qty">{data.qty}</span> :
                             <span className="btn_bars">
@@ -59,7 +72,8 @@ class Capsule extends React.Component {
                                 <span className="bar-horizontal">{}</span>
                             </span>
                         }
-                    </button>
+                        {qty && <Qty data={data} addToCart={this.props.addToCart} hideQty={this.hideQty} desktop />}
+                    </div>
                 </div>
                 {!active && <div className="curtain">{}</div>}
                 {decaffeinated && <span className="decaf-circle">{}</span>}

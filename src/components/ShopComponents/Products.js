@@ -30,30 +30,31 @@ class Products extends React.Component {
     }
     render() {
         const {type, showTree, mobile} = this.state;
+        const {showQty, addToCart, desktopQty} = this.props;
         if (this.props.shop.length) {
             if (type === 'full') {
                 return (
                     <div>
-                        <Sets data={this.getSets()} showQty={this.props.showQty} showTree={this.showTree} />
-                        {showTree && !mobile && <Tree data={this.getCapsules()} showQty={this.props.showQty} />}
-                        {showTree && mobile && <List data={this.getCapsules()} showQty={this.props.showQty} />}
+                        <Sets data={this.getSets()} showQty={showQty} showTree={this.showTree} />
+                        {showTree && !mobile && <Tree data={this.getCapsules()} showQty={showQty} addToCart={addToCart} desktopQty={desktopQty} />}
+                        {showTree && mobile && <List data={this.getCapsules()} showQty={showQty} />}
                     </div>
                 )
             } else if (type === 'tree') {
                 return (
                     <div>
                         <div className="view-desktop">
-                            <Tree data={this.getCapsules()} showQty={this.props.showQty} />
+                            <Tree data={this.getCapsules()} showQty={showQty} addToCart={addToCart} desktopQty={desktopQty} />
                         </div>
                         <div className="view-mobile">
-                            <List data={this.getCapsules()} showQty={this.props.showQty} />
+                            <List data={this.getCapsules()} showQty={showQty} />
                         </div>
                     </div>
                 )
             } else if (type === 'list') {
                 return (
                     <div>
-                        <List data={this.getCapsules()} showQty={this.props.showQty} />
+                        <List data={this.getCapsules()} showQty={showQty} />
                     </div>
                 )
             } else {

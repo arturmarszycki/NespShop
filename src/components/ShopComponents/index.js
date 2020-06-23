@@ -2,7 +2,7 @@ import React from 'react';
 import Products from './Products';
 import Filters from './Filters';
 import Cart from './Cart';
-import Qty from './Cart/Qty';
+import QtyFrame from './Cart/QtyFrame';
 import DetailsSet from './DetailsSet';
 import TopBar from "../CommonComponents/TopBar";
 import Steps from "../CommonComponents/Steps";
@@ -14,11 +14,15 @@ class ShopWrapper extends React.Component {
         item: null,
         cartList: [],
         qty: false,
+        desktopQty: false,
         detailsSet: false,
         scrolledToBottom: false
     }
     showQty = item => {
         this.setState({qty: true, item});
+    }
+    hideDesktopQty = () => {
+        this.setState(prevState => ({desktopQty: !prevState.desktopQty}));
     }
     hideQty = () => {
         this.setState({qty: false, item: null});
@@ -49,7 +53,7 @@ class ShopWrapper extends React.Component {
         document.removeEventListener('scroll', this.trackScrolling);
     }
     render() {
-        const {item, qty, detailsSet, scrolledToBottom} = this.state;
+        const {item, qty, detailsSet, scrolledToBottom, desktopQty} = this.state;
         const {shop, type} = this.props;
         const cartItems = shop.filter(item => {
             if (item.qty) {
@@ -62,9 +66,9 @@ class ShopWrapper extends React.Component {
                 <TopBar />
                 <Steps step={2} />
                 {type === 'list' ? null : <Filters />}
-                <Products type={type} shop={shop} showQty={this.showQty} />
+                <Products type={type} shop={shop} showQty={this.showQty} desktopQty={desktopQty} addToCart={this.addToCart} />
                 <Cart items={cartItems} remove={this.removeItem} />
-                {qty && <Qty data={item} hideQty={this.hideQty} addToCart={this.addToCart} />}
+                {qty && <QtyFrame data={item} hideQty={this.hideQty} addToCart={this.addToCart} />}
                 {detailsSet && <DetailsSet />}
                 <div className="active-bottom">
                     <ShopActionBar amount={totalAmount} />

@@ -60,7 +60,7 @@ class Category extends React.Component {
         }
     }
     render() {
-        const {items} = this.props;
+        const {items, showQty, addToCart, desktopQty} = this.props;
         const list = items.map(item => {
             return (
                 <Capsule
@@ -70,7 +70,9 @@ class Category extends React.Component {
                     setHeight={this.state.highestValue}
                     displayDetails={this.showDetails}
                     pushDetailsInfo={this.pushDetailsInfo}
-                    showQty={this.props.showQty}
+                    showQty={showQty}
+                    addToCart={addToCart}
+                    desktopQty={desktopQty}
                 />
             )
         });
@@ -81,7 +83,7 @@ class Category extends React.Component {
                         <span>{}</span>
                         <h3>{items[0].coffee_category}</h3>
                     </div>
-                    <ul>
+                    <ul className="capsule-list">
                         {list}
                     </ul>
                 </div>
