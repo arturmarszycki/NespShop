@@ -20,7 +20,7 @@ class Tree extends React.Component {
     }
     render() {
         const {activeDetailsCategory} = this.state;
-        const {data, showQty, addToCart, desktopQty} = this.props;
+        const {data, showQty, addToCart, qty} = this.props;
         const categoryArray = [
             data.filter(item => item.id_shop_category === 9),
             data.filter(item => item.id_shop_category === 29),
@@ -37,7 +37,7 @@ class Tree extends React.Component {
                     activeDetailsCategory={activeDetailsCategory}
                     showQty={showQty}
                     addToCart={addToCart}
-                    desktopQty={desktopQty}
+                    qty={qty}
                 />
             )
         });

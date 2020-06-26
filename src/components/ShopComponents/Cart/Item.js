@@ -11,7 +11,7 @@ const Item = ({data, remove}) => {
                 <span className="cart-item-title">{data.title}</span>
             </div>
             <div className="cart-item-info">
-                <span className="cart-item-amount">&euro;&nbsp;{data.product_type === 'capsule' ? '0.40' : '42.5'}</span>
+                <span className="cart-item-amount">&euro;&nbsp;{data.product_type === 'capsule' ? 0.4 * data.qty : 42.5 * data.qty}</span>
                 <span className="cart-item-quantity">{data.qty}</span>
                 <span className="cart-item-price">&euro;&nbsp;{data.product_type === 'capsule' ? data.qty * 0.4 : data.qty * 42.5}</span>
             </div>

@@ -108,3 +108,14 @@
     border-top: 20px solid #eee;
   }
 }
+.position-bottom {
+  top: calc(100% + 8px);
+  bottom: initial;
+  .qty-arrow {
+    left: 50%;
+    top: initial;
+    bottom: 100%;
+    border-top: none;
+    border-bottom: 20px solid #eee;
+  }
+}

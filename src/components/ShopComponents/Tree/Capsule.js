@@ -1,14 +1,13 @@
 import React from 'react';
 import Qty from '../Cart/Qty';
 import '../../../styles/Shop/Tree/capsule.scss';
-import equal from 'fast-deep-equal';
 
 class Capsule extends React.Component {
     state = {
         data: this.props.data,
         active: true,
         decaffeinated: false,
-        qty: false,
+        qtyBottom: false,
         filters: {
             aromatic_profile: [],
             cup_size: [],
@@ -32,31 +31,24 @@ class Capsule extends React.Component {
         await this.setState(prevState => ({data: {...prevState.data, details: true}}), () => this.props.pushDetailsInfo(this.state.data));
         this.props.displayDetails(this.state.data);
     }
-    hideQty = () => {
-        this.setState({qty: false});
-    }
     chooseQty = e => {
         e.stopPropagation();
-        this.setState({qty: true});
+        let qtyBottomState = this.refs.button.getBoundingClientRect().top < 325;
+        this.setState({qtyBottom: qtyBottomState});
         this.props.showQty(this.state.data);
     }
     componentDidMount() {
         this.props.getHeight(this.divElement.clientHeight);
         this.defineType();
     }
-    componentDidUpdate(prevProps) {
-        const {qty} = this.props;
-        if(!equal(qty, prevProps.qty)) {
-            this.setState({qty});
-        }
-    }
     render() {
-        const {setHeight, data} = this.props;
-        const {active, decaffeinated, qty} = this.state;
+        const {setHeight, data, addToCart, qty} = this.props;
+        const {active, decaffeinated, qtyBottom} = this.state;
         const image = require(`../../../images/${data.title}.png`);
+        const qtyVisible = qty === data.id_shop_product;
         return (
             <li className="single-capsule">
-                <div className={this.state.data.details ? 'capsule-inner capsule-active' : 'capsule-inner'} onClick={this.showDetails}>
+                <div className={data.details ? 'capsule-inner capsule-active' : 'capsule-inner'} onClick={this.showDetails}>
                     <img src={image.default} alt="" />
                     <p className="cup-name" style={{height: `${setHeight}px`}} ref={(divElement) => {this.divElement = divElement}}>{data.title}</p>
                     <div className="cup-intensity">
@@ -64,7 +56,7 @@ class Capsule extends React.Component {
                         <div className="intensity-graphic">{this.showIntensityGraphic(data.intensity)}</div>
                     </div>
                     <p className="cup-price">&euro;&nbsp;0,40</p>
-                    <div className="btn_addToBasket" onClick={this.chooseQty}>
+                    <div className="btn_addToBasket" onClick={this.chooseQty} ref="button">
                         {data.qty ?
                             <span className="btn-qty">{data.qty}</span> :
                             <span className="btn_bars">
@@ -72,7 +64,7 @@ class Capsule extends React.Component {
                                 <span className="bar-horizontal">{}</span>
                             </span>
                         }
-                        {qty && <Qty data={data} addToCart={this.props.addToCart} hideQty={this.hideQty} desktop />}
+                        {qtyVisible && <Qty data={data} addToCart={addToCart} desktop qtyBottom={qtyBottom} />}
                     </div>
                 </div>
                 {!active && <div className="curtain">{}</div>}

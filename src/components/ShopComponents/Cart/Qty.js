@@ -33,16 +33,24 @@ class Qty extends React.Component {
     addToBasket = qty => {
         this.setState(prevState => ({product: {...prevState.product, qty: qty}}), () => {
             this.props.addToCart(this.state.product);
-            if (this.props.desktop) {
-                this.props.hideQty();
-            }
         });
+    }
+    defineClasses = () => {
+        const {desktop, qtyBottom} = this.props;
+        if (desktop) {
+            if (qtyBottom) {
+                return 'choose-qty-frame desktop-frame position-bottom';
+            } else {
+                return 'choose-qty-frame desktop-frame';
+            }
+        } else {
+            return 'choose-qty-frame';
+        }
     }
     render() {
         const {product, yourQty, qty_error} = this.state;
-        const {desktop} = this.props;
         return (
-            <div className={desktop ? 'choose-qty-frame desktop-frame' : 'choose-qty-frame'} onClick={e => e.stopPropagation()}>
+            <div className={this.defineClasses()} onClick={e => e.stopPropagation()}>
                 <div className="qty-fields">
                     {this.showQuantities(product.product_type)}
                 </div>

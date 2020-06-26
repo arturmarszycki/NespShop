@@ -6,8 +6,7 @@ import List from './List';
 class Products extends React.Component {
     state = {
         type: this.props.type,
-        showTree: false,
-        mobile: false
+        showTree: false
     };
     getSets = () => {
         return this.props.shop.filter(item => item.product_type === 'set');
@@ -18,25 +17,15 @@ class Products extends React.Component {
     showTree = () => {
         this.setState({showTree: true});
     }
-    handleResize = () => {
-        window.innerWidth < 1200 ? this.setState({mobile: true}) : this.setState({mobile: false});
-    }
-    componentDidMount() {
-        this.handleResize();
-        window.addEventListener('resize', this.handleResize);
-    }
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleResize);
-    }
     render() {
-        const {type, showTree, mobile} = this.state;
-        const {showQty, addToCart, desktopQty} = this.props;
+        const {type, showTree} = this.state;
+        const {showQty, addToCart, qty, mobile} = this.props;
         if (this.props.shop.length) {
             if (type === 'full') {
                 return (
                     <div>
                         <Sets data={this.getSets()} showQty={showQty} showTree={this.showTree} />
-                        {showTree && !mobile && <Tree data={this.getCapsules()} showQty={showQty} addToCart={addToCart} desktopQty={desktopQty} />}
+                        {showTree && !mobile && <Tree data={this.getCapsules()} showQty={showQty} addToCart={addToCart} qty={qty} />}
                         {showTree && mobile && <List data={this.getCapsules()} showQty={showQty} />}
                     </div>
                 )
@@ -44,7 +33,7 @@ class Products extends React.Component {
                 return (
                     <div>
                         <div className="view-desktop">
-                            <Tree data={this.getCapsules()} showQty={showQty} addToCart={addToCart} desktopQty={desktopQty} />
+                            <Tree data={this.getCapsules()} showQty={showQty} addToCart={addToCart} qty={qty} />
                         </div>
                         <div className="view-mobile">
                             <List data={this.getCapsules()} showQty={showQty} />

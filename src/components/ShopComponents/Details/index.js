@@ -35,9 +35,6 @@ class Details extends React.Component {
         }
         return array;
     };
-    chooseQty = () => {
-        this.props.showQty(this.props.data);
-    }
     componentDidMount() {
         this.defineType();
         this.toggle();
@@ -48,7 +45,7 @@ class Details extends React.Component {
         }
     }
     render() {
-        const {data, fullData, basic} = this.props;
+        const {data, fullData, basic, addToCart, qty, showQty} = this.props;
         const {decaffeinated, height} = this.state;
         const similarList = data.similar_products.map(product => {
             return product = fullData.filter(item => item.id_shop_product === Number(product))[0];
@@ -70,8 +67,10 @@ class Details extends React.Component {
                                 filteredCapsuleProp={filteredCapsuleProp}
                                 decaffeinated={decaffeinated}
                                 closeDetails={this.closeDetails}
-                                chooseQty={this.chooseQty}
+                                showQty={showQty}
                                 showIntensityGraphic={this.showIntensityGraphic}
+                                addToCart={addToCart}
+                                qty={qty}
                             />
                         }
                     </div>

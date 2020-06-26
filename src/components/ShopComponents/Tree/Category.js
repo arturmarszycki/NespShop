@@ -60,7 +60,7 @@ class Category extends React.Component {
         }
     }
     render() {
-        const {items, showQty, addToCart, desktopQty} = this.props;
+        const {items, showQty, addToCart, qty, fullData} = this.props;
         const list = items.map(item => {
             return (
                 <Capsule
@@ -72,7 +72,7 @@ class Category extends React.Component {
                     pushDetailsInfo={this.pushDetailsInfo}
                     showQty={showQty}
                     addToCart={addToCart}
-                    desktopQty={desktopQty}
+                    qty={qty}
                 />
             )
         });
@@ -87,7 +87,14 @@ class Category extends React.Component {
                         {list}
                     </ul>
                 </div>
-                {this.state.details && <Details data={this.state.details} hideDetails={this.closeDetails} fullData={this.props.fullData} showQty={this.props.showQty} />}
+                {this.state.details && <Details
+                    data={this.state.details}
+                    hideDetails={this.closeDetails}
+                    fullData={fullData}
+                    showQty={showQty}
+                    addToCart={addToCart}
+                    qty={qty}
+                />}
             </div>
         )
     }
