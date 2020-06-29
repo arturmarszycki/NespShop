@@ -60,7 +60,7 @@ class Category extends React.Component {
         }
     }
     render() {
-        const {items, showQty, addToCart, qty, fullData} = this.props;
+        const {items, showQty, addToCart, qty, fullData, detailsQty} = this.props;
         const list = items.map(item => {
             return (
                 <Capsule
@@ -73,6 +73,7 @@ class Category extends React.Component {
                     showQty={showQty}
                     addToCart={addToCart}
                     qty={qty}
+                    detailsQty={detailsQty}
                 />
             )
         });
@@ -94,6 +95,7 @@ class Category extends React.Component {
                     showQty={showQty}
                     addToCart={addToCart}
                     qty={qty}
+                    detailsQty={detailsQty}
                 />}
             </div>
         )

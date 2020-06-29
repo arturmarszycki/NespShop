@@ -14,11 +14,12 @@ class ShopWrapper extends React.Component {
         item: null,
         cartList: [],
         detailsSet: false,
+        detailsQty: false,
         scrolledToBottom: false,
         mobile: false
     }
-    showQty = item => {
-        this.setState({item});
+    showQty = (item, detailsQty) => {
+        this.setState({item, detailsQty});
     }
     hideQty = () => {
         this.setState({item: null});
@@ -55,7 +56,7 @@ class ShopWrapper extends React.Component {
         window.removeEventListener('resize', this.handleResize);
     }
     render() {
-        const {item, detailsSet, scrolledToBottom, mobile} = this.state;
+        const {item, detailsSet, scrolledToBottom, mobile, detailsQty} = this.state;
         const {shop, type} = this.props;
         const cartItems = shop.filter(item => {
             if (item.qty) {
@@ -68,7 +69,7 @@ class ShopWrapper extends React.Component {
                 <TopBar />
                 <Steps step={2} />
                 {type === 'list' ? null : <Filters />}
-                <Products type={type} shop={shop} showQty={this.showQty} qty={!mobile && item && item.id_shop_product} addToCart={this.addToCart} mobile={mobile} />
+                <Products type={type} shop={shop} showQty={this.showQty} qty={!mobile && item && item.id_shop_product} addToCart={this.addToCart} mobile={mobile} detailsQty={detailsQty} />
                 <Cart items={cartItems} remove={this.removeItem} />
                 {mobile && item && <QtyFrame data={item} hideQty={this.hideQty} addToCart={this.addToCart} />}
                 {detailsSet && <DetailsSet />}

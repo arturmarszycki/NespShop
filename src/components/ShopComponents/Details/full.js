@@ -7,19 +7,23 @@ import description from "./description";
 
 class DetailsFull extends React.Component {
     state = {
-        qtyBottom: false
+        qtyBottom: false,
+        similar: null
     }
     chooseQty = e => {
         e.stopPropagation();
         let qtyBottomState = this.refs.button.getBoundingClientRect().top < 325;
         this.setState({qtyBottom: qtyBottomState});
-        this.props.showQty(this.props.data);
+        this.props.showQty(this.props.data, true);
+    }
+    showSimilar = similar => {
+        this.setState({similar}, () => console.log(this.state.similar));
     }
     render() {
-        const {data, similarList, filteredCapsuleProp, decaffeinated, closeDetails, showIntensityGraphic, addToCart, qty} = this.props;
+        const {data, similarList, filteredCapsuleProp, decaffeinated, closeDetails, showIntensityGraphic, addToCart, qty, detailsQty} = this.props;
         const image = require(`../../../images/${data.title}.png`);
         const desc = description.filter(item => item.id === data.id_shop_product)[0];
-        const qtyVisible = qty === data.id_shop_product;
+        const qtyVisible = (qty === data.id_shop_product && detailsQty);
         return (
             <div className="details-inner">
                 <div className="close-details">
@@ -49,7 +53,7 @@ class DetailsFull extends React.Component {
                             <div className="capsule-info-point">
                                 <span className="info-label">Comparable coffee profiles:</span>
                             </div>
-                            <Comparable list={similarList} />
+                            <Comparable list={similarList} showSimilar={this.showSimilar} />
                         </div>
                         <Allergens data={data} />
                     </div>

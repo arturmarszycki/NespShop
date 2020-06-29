@@ -35,20 +35,20 @@ class Capsule extends React.Component {
         e.stopPropagation();
         let qtyBottomState = this.refs.button.getBoundingClientRect().top < 325;
         this.setState({qtyBottom: qtyBottomState});
-        this.props.showQty(this.state.data);
+        this.props.showQty(this.state.data, false);
     }
     componentDidMount() {
         this.props.getHeight(this.divElement.clientHeight);
         this.defineType();
     }
     render() {
-        const {setHeight, data, addToCart, qty} = this.props;
+        const {setHeight, addToCart, qty, data, detailsQty} = this.props;
         const {active, decaffeinated, qtyBottom} = this.state;
         const image = require(`../../../images/${data.title}.png`);
-        const qtyVisible = qty === data.id_shop_product;
+        const qtyVisible = (qty === data.id_shop_product && !detailsQty);
         return (
             <li className="single-capsule">
-                <div className={data.details ? 'capsule-inner capsule-active' : 'capsule-inner'} onClick={this.showDetails}>
+                <div className={this.state.data.details ? 'capsule-inner capsule-active' : 'capsule-inner'} onClick={this.showDetails}>
                     <img src={image.default} alt="" />
                     <p className="cup-name" style={{height: `${setHeight}px`}} ref={(divElement) => {this.divElement = divElement}}>{data.title}</p>
                     <div className="cup-intensity">

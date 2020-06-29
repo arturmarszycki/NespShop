@@ -45,7 +45,7 @@ class Details extends React.Component {
         }
     }
     render() {
-        const {data, fullData, basic, addToCart, qty, showQty} = this.props;
+        const {data, fullData, basic, addToCart, qty, showQty, detailsQty} = this.props;
         const {decaffeinated, height} = this.state;
         const similarList = data.similar_products.map(product => {
             return product = fullData.filter(item => item.id_shop_product === Number(product))[0];
@@ -71,6 +71,7 @@ class Details extends React.Component {
                                 showIntensityGraphic={this.showIntensityGraphic}
                                 addToCart={addToCart}
                                 qty={qty}
+                                detailsQty={detailsQty}
                             />
                         }
                     </div>

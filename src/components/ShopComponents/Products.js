@@ -19,13 +19,13 @@ class Products extends React.Component {
     }
     render() {
         const {type, showTree} = this.state;
-        const {showQty, addToCart, qty, mobile} = this.props;
+        const {showQty, addToCart, qty, mobile, detailsQty} = this.props;
         if (this.props.shop.length) {
             if (type === 'full') {
                 return (
                     <div>
                         <Sets data={this.getSets()} showQty={showQty} showTree={this.showTree} />
-                        {showTree && !mobile && <Tree data={this.getCapsules()} showQty={showQty} addToCart={addToCart} qty={qty} />}
+                        {showTree && !mobile && <Tree data={this.getCapsules()} showQty={showQty} addToCart={addToCart} qty={qty} detailsQty={detailsQty} />}
                         {showTree && mobile && <List data={this.getCapsules()} showQty={showQty} />}
                     </div>
                 )
@@ -33,7 +33,7 @@ class Products extends React.Component {
                 return (
                     <div>
                         <div className="view-desktop">
-                            <Tree data={this.getCapsules()} showQty={showQty} addToCart={addToCart} qty={qty} />
+                            <Tree data={this.getCapsules()} showQty={showQty} addToCart={addToCart} qty={qty} detailsQty={detailsQty} />
                         </div>
                         <div className="view-mobile">
                             <List data={this.getCapsules()} showQty={showQty} />
