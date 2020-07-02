@@ -21,7 +21,8 @@ class MainForm extends React.Component {
             purchasing_date_error: '',
             price_error: '',
             select_error: '',
-            purchase_proof_error: ''
+            purchase_proof_error: '',
+            machine_img: false
         };
     }
     typeOptions = [{title: '--- Type of store ---', value: ''}, {title: 'physical store', value: '1'}, {title: 'online store', value: '2'}];
@@ -33,11 +34,11 @@ class MainForm extends React.Component {
     validateSerialNumber = number => {
         this.handleSerialNumber(number);
         if (number.length !== 19) {
-            this.setState({serial_number_error: 'THE SERIAL NUMBER YOU FILLED OUT CONTAINS LESS THAN 19 CHARACTERS, PLEASE CHECK AGAIN BEFORE ENTERING THE NUMBER AGAIN'});
+            this.setState({serial_number_error: 'THE SERIAL NUMBER YOU FILLED OUT CONTAINS LESS THAN 19 CHARACTERS, PLEASE CHECK AGAIN BEFORE ENTERING THE NUMBER AGAIN', machine_img: false});
         } else if (number !== 'serialklubnespresso') {
-            this.setState({serial_number_error: 'THIS SERIAL IS INCORRECT'});
+            this.setState({serial_number_error: 'THIS SERIAL IS INCORRECT', machine_img: false});
         } else {
-            this.setState({serial_number_error: ''});
+            this.setState({serial_number_error: '', machine_img: true});
         }
     }
     handlePurchasingDate = date => {
@@ -133,12 +134,13 @@ class MainForm extends React.Component {
     render() {
         const {
             serial_number, purchasing_date, price, select_type, select_point, select_city, purchase_proof,
-            serial_number_error, purchasing_date_error, price_error, select_error, purchase_proof_error
+            serial_number_error, purchasing_date_error, price_error, select_error, purchase_proof_error,
+            machine_img
         } = this.state;
         const img = require('../../images/machine.jpg');
         return (
             <div className="form-machine">
-                <img className="img-machine" src={img.default} alt=""/>
+                {machine_img && <img className="img-machine" src={img.default} alt=""/>}
                 <div className="form-inner">
                     <h2>machine information</h2>
                     <form action="" onSubmit={this.handleSubmit}>

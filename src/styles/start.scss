@@ -20,5 +20,9 @@
     letter-spacing: 2px;
     border: 1px solid #fff;
     color: #fff;
+    &:hover {
+      background-color: #fff;
+      color: #000;
+    }
   }
 }

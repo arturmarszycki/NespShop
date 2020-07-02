@@ -11,7 +11,8 @@ class Details extends React.Component {
         this.state = {
             active: false,
             decaffeinated: false,
-            height: 0
+            height: 0,
+            similar: null
         };
     };
     toggle = () => {
@@ -35,6 +36,13 @@ class Details extends React.Component {
         }
         return array;
     };
+    similarQty = id => {
+        if (id) {
+            this.setState({similar: id});
+        } else {
+            this.setState({similar: null});
+        }
+    }
     componentDidMount() {
         this.defineType();
         this.toggle();
@@ -46,11 +54,12 @@ class Details extends React.Component {
     }
     render() {
         const {data, fullData, basic, addToCart, qty, showQty, detailsQty} = this.props;
-        const {decaffeinated, height} = this.state;
+        const {decaffeinated, height, similar} = this.state;
+        const filteredCapsule = similar ? similar : data.id_shop_product;
         const similarList = data.similar_products.map(product => {
             return product = fullData.filter(item => item.id_shop_product === Number(product))[0];
         });
-        const filteredCapsuleProp = fullData.filter(capsule => data.id_shop_product === capsule.id_shop_product)[0];
+        const filteredCapsuleProp = fullData.filter(capsule => filteredCapsule === capsule.id_shop_product)[0];
         return (
             <div className="capsule-details-frame">
                 <AnimateHeight duration={500} height={height}>
@@ -62,7 +71,7 @@ class Details extends React.Component {
                                 showIntensityGraphic={this.showIntensityGraphic}
                             /> :
                             <DetailsFull
-                                data={data}
+                                item={data}
                                 similarList={similarList}
                                 filteredCapsuleProp={filteredCapsuleProp}
                                 decaffeinated={decaffeinated}
@@ -72,6 +81,7 @@ class Details extends React.Component {
                                 addToCart={addToCart}
                                 qty={qty}
                                 detailsQty={detailsQty}
+                                similarQty={this.similarQty}
                             />
                         }
                     </div>

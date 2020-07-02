@@ -9,9 +9,20 @@
       max-width: 1200px;
       margin: 0 auto;
       .close-details {
-        text-align: right;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
         padding: 0 50px;
-        span {
+        .close-similar {
+          button {
+            background-color: #fff;
+            padding: 2px 12px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            cursor: pointer;
+          }
+        }
+        .btn_closeDetails {
           display: inline-block;
           transform: rotate(45deg);
           color: #666;
@@ -96,6 +107,7 @@
               .similar-capsule {
                 position: relative;
                 margin: 0 5px;
+                cursor: pointer;
                 .similar-capsule-inner {
                   padding: 10px;
                   text-align: center;
@@ -104,7 +116,7 @@
                     width: 40px;
                   }
                   .cup-name {
-                    font-size: 12px;
+                    font-size: 10px;
                   }
                 }
               }
